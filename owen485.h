@@ -1,0 +1,12 @@
+#ifndef OWEN485_H
+#define OWEN485_H
+
+#define OWENMAXFRSIZE 21
+#define OWENMAXASCIISIZE 44
+
+#define OWENSI8ADDR 1
+#define OWENSI8CNTHASH 0xc173
+#define OWENSI8TIMHASH 0xe69c
+#define OWENSI8SPDHASH 0x8FC2
+
+#endif

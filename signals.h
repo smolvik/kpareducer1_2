@@ -1,0 +1,11 @@
+#ifndef SIGNALS_H
+#define SIGNALS_H
+
+#define SIG_ETH_FRAMERDY_THRPACKPARSER (0x01<<0)
+
+
+#define SIG_DUT_UPDATE (0x01<<0)
+#define SIG_DUT_MDB232_RDYDATA (0x01<<1)
+#define SIG_DUT_OWEN485_RDYDATA (0x01<<2)
+
+#endif

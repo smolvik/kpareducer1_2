@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# setting for serial port
+SDEV=/dev/ttyUSB0
+BODERATE=115200
+# setting for tcp/ip connection
+IP=127.0.0.1
+#IP=192.168.1.206
+PORT=1502
+# timeout modbus ms
+TIMEOUT=500
+
+if kpaport=$(./find_kpa); then
+echo "KPA-506 board is found on $kpaport"
+else
+echo "ERROR MKIO board is'nt found"
+exit 1
+fi
+
+SDEV="/dev/$kpaport"
+
+# launch as demon
+#./mbrtutcp_bridge -d$SDEV -b$BODERATE -i$IP -p$PORT
+
+# launch in foreground mode
+./mbrtutcp_bridge -d$SDEV -b$BODERATE -i$IP -p$PORT -f
