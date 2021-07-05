@@ -97,7 +97,7 @@ FLASH            0x00000000         0x00020000         xr
 Linker script and memory map
 
 
-.text           0x00000000     0x9138
+.text           0x00000000     0x8e70
                 0x00000000                . = ALIGN (0x4)
  *(.interrupt_vector)
  .interrupt_vector
@@ -106,808 +106,808 @@ Linker script and memory map
  *(.init)
  *(.fini)
  *(.text)
- .text          0x000000c0      0x33c main.o
-                0x000000c0                main
-                0x00000158                TIMER1_Handler
-                0x0000017c                TIMER2_Handler
-                0x000001d0                dut_start
-                0x000001f8                dut_stop
-                0x00000220                dut_set_speed
-                0x00000240                dut_set_torque
-                0x00000250                threadDUTProceed
-                0x000003bc                threadFSMProceed
- .text          0x000003fc       0x98 startup.o
-                0x000003fc                Reset_Handler
-                0x000003fc                handler_reset
-                0x0000048c                DMA_Handler
-                0x0000048c                TIMER4_Handler
-                0x0000048c                HardFault_Handler
-                0x0000048c                ARINC429T2_Handler
-                0x0000048c                EXT_INT1_Handler
-                0x0000048c                NMI_Handler
-                0x0000048c                ADC_Handler
-                0x0000048c                WWDG_Handler
-                0x0000048c                POWER_Handler
-                0x0000048c                BKP_Handler
-                0x0000048c                MIL_STD_1553B1_Handler
-                0x0000048c                CAN2_Handler
-                0x0000048c                TIMER3_Handler
-                0x0000048c                default_handler
-                0x0000048c                EXT_INT2_Handler
-                0x0000048c                USB_Handler
-                0x0000048c                ARINC429T4_Handler
-                0x0000048c                EXT_INT4_Handler
-                0x0000048c                MIL_STD_1553B2_Handler
-                0x0000048c                CAN1_Handler
-                0x0000048c                EXT_INT3_Handler
-                0x0000048c                BUSY_Handler
-                0x0000048c                ARINC429T3_Handler
-                0x0000048c                SSP2_Handler
-                0x0000048c                SSP3_Handler
-                0x0000048c                ARINC429T1_Handler
-                0x0000048c                ARINC429R_Handler
-                0x0000048c                SSP1_Handler
- .text          0x00000494      0x6d8 owen485.o
-                0x000004c8                owen485_init
-                0x00000530                owen485_send
-                0x00000594                owen_unpack_ascii
-                0x00000644                owen_pack_ascii
-                0x000006c8                owen_crc16_wtb
-                0x00000734                owen_mk_frame
-                0x000007cc                owen_si8_request
-                0x00000824                owen485_get
-                0x00000a84                UART2_Handler
- .text          0x00000b6c      0x2a4 stubs.o
-                0x00000b6c                _exit
-                0x00000b88                _close
-                0x00000b9c                _execve
-                0x00000bc0                _fork
-                0x00000bd8                _fstat
-                0x00000bf4                _getpid
-                0x00000c00                _isatty
-                0x00000c28                _kill
-                0x00000c48                _link
-                0x00000c68                _lseek
-                0x00000c80                _sbrk
-                0x00000cf4                _read
-                0x00000d28                _stat
-                0x00000d44                _times
-                0x00000d58                _unlink
-                0x00000d78                _wait
-                0x00000d98                _write
-                0x00000df8                _init
-                0x00000e04                _fini
- .text          0x00000e10      0x3cc mdb232.o
-                0x00000e84                mdb232_init
-                0x00000f38                mdb232_read_inputregs
-                0x00000ffc                mdb232_readregs
-                0x000010c0                mdb232_bikm_get_torque
-                0x0000116c                UART1_Handler
- .text          0x000011dc      0x844 xprintf.o
-                0x000011dc                xputc
-                0x00001234                xputs
-                0x0000125c                xfputs
-                0x000015b8                xprintf
-                0x000015e0                xsprintf
-                0x00001624                xfprintf
-                0x00001664                put_dump
-                0x00001768                xgets
-                0x00001808                xfgets
-                0x00001844                xatoi
- .text          0x00001a20       0x68 RTX_Conf_CM.o
-                0x00001a20                os_idle_demon
-                0x00001a28                os_error
-                0x00001a54                software_init_hook
- .text          0x00001a88      0x428 system.o
-                0x00001b98                PortConfig
-                0x00001cb4                ClkConfig
-                0x00001e04                TimerConfig
-                0x00001e7c                SystemInit
- .text          0x00001eb0      0x770 ethfunc.o
-                0x00001ee4                RemoteMacInit
-                0x00001f18                PHYInit
-                0x00001f7c                SetPHYReg
-                0x00001fe8                GetPHYReg
-                0x00002044                EthernetConfig
-                0x000020b0                MACReset
-                0x000021a0                ClearMemory
-                0x000021d8                ReadPacket
-                0x000023c4                SendPacket
-                0x000025c4                ETHERNET_Handler
- .text          0x00002620      0xad0 network.o
-                0x00002620                network_config
-                0x0000262c                Answear_ARP
-                0x00002714                CheckSum_UDP
-                0x00002874                CheckSum_IP
-                0x000028d0                CheckSum_ICMP
-                0x00002934                Request_ICMP
-                0x00002b18                Answear_ICMP
-                0x00002c78                Send_UDP
-                0x00002eb8                PacketParser
-                0x00003000                threadPacketParser
- .text          0x000030f0       0xe4 crc.o
-                0x000030f0                crc32
-                0x00003144                crc16
- .text          0x000031d4       0x38 eeprom.o
-                0x000031d4                eeprom_on
-                0x000031f0                eeprom_off
- .text          0x0000320c      0x2e0 param.o
-                0x0000320c                par_default
-                0x00003264                par_save
-                0x000032c0                par_verify
-                0x00003320                par_read
-                0x00003388                par_update
-                0x00003438                par_mac
-                0x00003474                par_iploc
-                0x000034b0                par_iprem
- .text          0x000034ec      0xbfc modbus_udp.o
-                0x000034ec                mdb_fifo_read
-                0x00003584                mdb_fifo_write
-                0x00003610                mdb_get_testparam
-                0x00003838                mdb_get_holding_register
-                0x00003fec                mdb_proc_adu
- .text          0x000040e8      0x2e0 fsm.o
-                0x000040e8                fsm_get_cyccnt
- .text          0x000043c8      0x114 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
-                0x000043c8                __udivsi3
-                0x000043c8                __aeabi_uidiv
-                0x000044d4                __aeabi_uidivmod
- .text          0x000044dc        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_dvmd_tls.o)
-                0x000044dc                __aeabi_ldiv0
-                0x000044dc                __aeabi_idiv0
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
- .text          0x000044e0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .text          0x000044e0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .text          0x000044e0      0x154 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
-                0x000044e0                rt_set_PSP
-                0x000044e6                rt_get_PSP
-                0x000044ec                os_set_env
-                0x0000450a                _alloc_box
-                0x00004524                _free_box
-                0x0000453e                SVC_Handler
-                0x000045c4                PendSV_Handler
-                0x000045c8                Sys_Switch
-                0x0000460c                SysTick_Handler
-                0x00004612                OS_Tick_Handler
- .text          0x00004634        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(svc_table.o)
- .text          0x00004634        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
- .text          0x00004634       0x40 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_aeabi_uldivmod.o)
-                0x00004634                __aeabi_uldivmod
- .text          0x00004674       0x58 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
-                0x00004674                __aeabi_lmul
-                0x00004674                __muldi3
- .text          0x000046cc      0x180 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
-                0x000046cc                __udivmoddi4
- .text          0x0000484c       0x18 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzdi2.o)
-                0x0000484c                __clzdi2
- .text          0x00004864       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzsi2.o)
-                0x00004864                __clzsi2
+ .text          0x000000c0      0x3a0 main.o
+                0x00000138                dut_start
+                0x00000160                dut_stop
+                0x00000188                dut_set_speed
+                0x000001a8                dut_set_torque
+                0x000001b8                main
+                0x00000254                TIMER1_Handler
+                0x00000278                TIMER2_Handler
+                0x000002cc                EXT_INT1_Handler
+                0x000002f0                threadDUTProceed
+                0x00000420                threadFSMProceed
+ .text          0x00000460       0x98 startup.o
+                0x00000460                Reset_Handler
+                0x00000460                handler_reset
+                0x000004f0                DMA_Handler
+                0x000004f0                TIMER4_Handler
+                0x000004f0                HardFault_Handler
+                0x000004f0                ARINC429T2_Handler
+                0x000004f0                NMI_Handler
+                0x000004f0                ADC_Handler
+                0x000004f0                WWDG_Handler
+                0x000004f0                POWER_Handler
+                0x000004f0                BKP_Handler
+                0x000004f0                MIL_STD_1553B1_Handler
+                0x000004f0                CAN2_Handler
+                0x000004f0                TIMER3_Handler
+                0x000004f0                default_handler
+                0x000004f0                EXT_INT2_Handler
+                0x000004f0                USB_Handler
+                0x000004f0                ARINC429T4_Handler
+                0x000004f0                EXT_INT4_Handler
+                0x000004f0                MIL_STD_1553B2_Handler
+                0x000004f0                CAN1_Handler
+                0x000004f0                EXT_INT3_Handler
+                0x000004f0                BUSY_Handler
+                0x000004f0                ARINC429T3_Handler
+                0x000004f0                SSP2_Handler
+                0x000004f0                SSP3_Handler
+                0x000004f0                ARINC429T1_Handler
+                0x000004f0                ARINC429R_Handler
+                0x000004f0                SSP1_Handler
+ .text          0x000004f8      0x594 mdb485.o
+                0x0000056c                mdb485_init
+                0x000005cc                mdb485_send
+                0x00000640                mdb485_putch
+                0x0000066c                mdb485_writeregs
+                0x000007b8                mdb485_readregs
+                0x0000087c                mdb485_read_inputregs
+                0x00000940                mdb485_get_func
+                0x00000968                mdb485_get_crc
+                0x000009a4                mdb485_si30_get_counter
+                0x00000a1c                UART2_Handler
+ .text          0x00000a8c      0x2a4 stubs.o
+                0x00000a8c                _exit
+                0x00000aa8                _close
+                0x00000abc                _execve
+                0x00000ae0                _fork
+                0x00000af8                _fstat
+                0x00000b14                _getpid
+                0x00000b20                _isatty
+                0x00000b48                _kill
+                0x00000b68                _link
+                0x00000b88                _lseek
+                0x00000ba0                _sbrk
+                0x00000c14                _read
+                0x00000c48                _stat
+                0x00000c64                _times
+                0x00000c78                _unlink
+                0x00000c98                _wait
+                0x00000cb8                _write
+                0x00000d18                _init
+                0x00000d24                _fini
+ .text          0x00000d30      0x3cc mdb232.o
+                0x00000da4                mdb232_init
+                0x00000e58                mdb232_read_inputregs
+                0x00000f1c                mdb232_readregs
+                0x00000fe0                mdb232_bikm_get_torque
+                0x0000108c                UART1_Handler
+ .text          0x000010fc      0x844 xprintf.o
+                0x000010fc                xputc
+                0x00001154                xputs
+                0x0000117c                xfputs
+                0x000014d8                xprintf
+                0x00001500                xsprintf
+                0x00001544                xfprintf
+                0x00001584                put_dump
+                0x00001688                xgets
+                0x00001728                xfgets
+                0x00001764                xatoi
+ .text          0x00001940       0x68 RTX_Conf_CM.o
+                0x00001940                os_idle_demon
+                0x00001948                os_error
+                0x00001974                software_init_hook
+ .text          0x000019a8      0x480 system.o
+                0x00001af0                PortConfig
+                0x00001c2c                ClkConfig
+                0x00001d7c                TimerConfig
+                0x00001df4                SystemInit
+ .text          0x00001e28      0x770 ethfunc.o
+                0x00001e5c                RemoteMacInit
+                0x00001e90                PHYInit
+                0x00001ef4                SetPHYReg
+                0x00001f60                GetPHYReg
+                0x00001fbc                EthernetConfig
+                0x00002028                MACReset
+                0x00002118                ClearMemory
+                0x00002150                ReadPacket
+                0x0000233c                SendPacket
+                0x0000253c                ETHERNET_Handler
+ .text          0x00002598      0xad0 network.o
+                0x00002598                network_config
+                0x000025a4                Answear_ARP
+                0x0000268c                CheckSum_UDP
+                0x000027ec                CheckSum_IP
+                0x00002848                CheckSum_ICMP
+                0x000028ac                Request_ICMP
+                0x00002a90                Answear_ICMP
+                0x00002bf0                Send_UDP
+                0x00002e30                PacketParser
+                0x00002f78                threadPacketParser
+ .text          0x00003068       0xe4 crc.o
+                0x00003068                crc32
+                0x000030bc                crc16
+ .text          0x0000314c       0x38 eeprom.o
+                0x0000314c                eeprom_on
+                0x00003168                eeprom_off
+ .text          0x00003184      0x2e0 param.o
+                0x00003184                par_default
+                0x000031dc                par_save
+                0x00003238                par_verify
+                0x00003298                par_read
+                0x00003300                par_update
+                0x000033b0                par_mac
+                0x000033ec                par_iploc
+                0x00003428                par_iprem
+ .text          0x00003464      0xbfc modbus_udp.o
+                0x00003464                mdb_fifo_read
+                0x000034fc                mdb_fifo_write
+                0x00003588                mdb_get_testparam
+                0x000037b0                mdb_get_holding_register
+                0x00003f64                mdb_proc_adu
+ .text          0x00004060      0x2e0 fsm.o
+                0x00004060                fsm_get_cyccnt
+ .text          0x00004340      0x114 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
+                0x00004340                __udivsi3
+                0x00004340                __aeabi_uidiv
+                0x0000444c                __aeabi_uidivmod
+ .text          0x00004454        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_dvmd_tls.o)
+                0x00004454                __aeabi_ldiv0
+                0x00004454                __aeabi_idiv0
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
+ .text          0x00004458        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .text          0x00004458        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .text          0x00004458      0x154 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+                0x00004458                rt_set_PSP
+                0x0000445e                rt_get_PSP
+                0x00004464                os_set_env
+                0x00004482                _alloc_box
+                0x0000449c                _free_box
+                0x000044b6                SVC_Handler
+                0x0000453c                PendSV_Handler
+                0x00004540                Sys_Switch
+                0x00004584                SysTick_Handler
+                0x0000458a                OS_Tick_Handler
+ .text          0x000045ac        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(svc_table.o)
+ .text          0x000045ac        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+ .text          0x000045ac       0x40 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_aeabi_uldivmod.o)
+                0x000045ac                __aeabi_uldivmod
+ .text          0x000045ec       0x58 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
+                0x000045ec                __aeabi_lmul
+                0x000045ec                __muldi3
+ .text          0x00004644      0x180 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
+                0x00004644                __udivmoddi4
+ .text          0x000047c4       0x18 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzdi2.o)
+                0x000047c4                __clzdi2
+ .text          0x000047dc       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzsi2.o)
+                0x000047dc                __clzsi2
  *(.text*)
- .text.atexit   0x000048a0       0x10 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
-                0x000048a0                atexit
- .text.exit     0x000048b0       0x20 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
-                0x000048b0                exit
+ .text.atexit   0x00004818       0x10 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
+                0x00004818                atexit
+ .text.exit     0x00004828       0x20 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
+                0x00004828                exit
  .text.__libc_fini_array
-                0x000048d0       0x34 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
-                0x000048d0                __libc_fini_array
+                0x00004848       0x34 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
+                0x00004848                __libc_fini_array
  .text.__libc_init_array
-                0x00004904       0x48 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
-                0x00004904                __libc_init_array
- .text.memset   0x0000494c       0x8c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
-                0x0000494c                memset
+                0x0000487c       0x48 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
+                0x0000487c                __libc_init_array
+ .text.memset   0x000048c4       0x8c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
+                0x000048c4                memset
  .text.cleanup_glue
-                0x000049d8       0x1c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
-                0x000049d8                cleanup_glue
+                0x00004950       0x1c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+                0x00004950                cleanup_glue
  .text._reclaim_reent
-                0x000049f4       0x94 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
-                0x000049f4                _reclaim_reent
+                0x0000496c       0x94 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+                0x0000496c                _reclaim_reent
  .text.__register_exitproc
-                0x00004a88       0xd4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
-                0x00004a88                __register_exitproc
+                0x00004a00       0xd4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
+                0x00004a00                __register_exitproc
  .text.startup.register_fini
-                0x00004b5c       0x18 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
+                0x00004ad4       0x18 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x00004b74       0xfc /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
-                0x00004b74                __call_exitprocs
+                0x00004aec       0xfc /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
+                0x00004aec                __call_exitprocs
  .text._malloc_trim_r
-                0x00004c70       0xa0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
-                0x00004c70                _malloc_trim_r
- .text._free_r  0x00004d10      0x1c4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
-                0x00004d10                _free_r
+                0x00004be8       0xa0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
+                0x00004be8                _malloc_trim_r
+ .text._free_r  0x00004c88      0x1c4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
+                0x00004c88                _free_r
  .text._malloc_r
-                0x00004ed4      0x554 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
-                0x00004ed4                _malloc_r
+                0x00004e4c      0x554 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+                0x00004e4c                _malloc_r
  .text.__malloc_lock
-                0x00005428        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
-                0x00005428                __malloc_lock
+                0x000053a0        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
+                0x000053a0                __malloc_lock
  .text.__malloc_unlock
-                0x0000542c        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
-                0x0000542c                __malloc_unlock
- .text._sbrk_r  0x00005430       0x24 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
-                0x00005430                _sbrk_r
+                0x000053a4        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
+                0x000053a4                __malloc_unlock
+ .text._sbrk_r  0x000053a8       0x24 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
+                0x000053a8                _sbrk_r
  .text.osThreadExit
-                0x00005454       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005454                osThreadExit
+                0x000053cc       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000053cc                osThreadExit
  .text.svcKernelInitialize
-                0x0000546c      0x114 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000546c                svcKernelInitialize
+                0x000053e4      0x114 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000053e4                svcKernelInitialize
  .text.svcKernelStart
-                0x00005580       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005580                svcKernelStart
+                0x000054f8       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000054f8                svcKernelStart
  .text.svcKernelRunning
-                0x000055cc        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000055cc                svcKernelRunning
+                0x00005544        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005544                svcKernelRunning
  .text.svcKernelSysTick
-                0x000055d8       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000055d8                svcKernelSysTick
+                0x00005550       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005550                svcKernelSysTick
  .text.osKernelInitialize
-                0x00005628      0x138 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005628                osKernelInitialize
+                0x000055a0      0x138 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000055a0                osKernelInitialize
  .text.osKernelStart
-                0x00005760       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005760                osKernelStart
+                0x000056d8       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000056d8                osKernelStart
  .text.osKernelRunning
-                0x000057d8       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000057d8                osKernelRunning
+                0x00005750       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005750                osKernelRunning
  .text.osKernelSysTick
-                0x00005800       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005800                osKernelSysTick
+                0x00005778       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005778                osKernelSysTick
  .text.svcThreadCreate
-                0x0000581c       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000581c                svcThreadCreate
+                0x00005794       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005794                svcThreadCreate
  .text.svcThreadGetId
-                0x00005894       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005894                svcThreadGetId
+                0x0000580c       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000580c                svcThreadGetId
  .text.svcThreadTerminate
-                0x000058b0       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000058b0                svcThreadTerminate
+                0x00005828       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005828                svcThreadTerminate
  .text.svcThreadYield
-                0x000058f4        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000058f4                svcThreadYield
+                0x0000586c        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000586c                svcThreadYield
  .text.svcThreadSetPriority
-                0x00005900       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005900                svcThreadSetPriority
+                0x00005878       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005878                svcThreadSetPriority
  .text.svcThreadGetPriority
-                0x00005934       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005934                svcThreadGetPriority
+                0x000058ac       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000058ac                svcThreadGetPriority
  .text.osThreadCreate
-                0x0000594c       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000594c                osThreadCreate
+                0x000058c4       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000058c4                osThreadCreate
  .text.osThreadGetId
-                0x000059fc       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000059fc                osThreadGetId
+                0x00005974       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005974                osThreadGetId
  .text.osThreadTerminate
-                0x00005a18       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005a18                osThreadTerminate
+                0x00005990       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005990                osThreadTerminate
  .text.osThreadYield
-                0x00005a38       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005a38                osThreadYield
+                0x000059b0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000059b0                osThreadYield
  .text.osThreadSetPriority
-                0x00005a58       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005a58                osThreadSetPriority
+                0x000059d0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000059d0                osThreadSetPriority
  .text.osThreadGetPriority
-                0x00005a78       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005a78                osThreadGetPriority
+                0x000059f0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000059f0                osThreadGetPriority
  .text.svcDelay
-                0x00005a98       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005a98                svcDelay
- .text.osDelay  0x00005af8       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005af8                osDelay
- .text.osWait   0x00005b18        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005b18                osWait
+                0x00005a10       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005a10                svcDelay
+ .text.osDelay  0x00005a70       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005a70                osDelay
+ .text.osWait   0x00005a90        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005a90                osWait
  .text.svcTimerCreate
-                0x00005b20       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005b20                svcTimerCreate
+                0x00005a98       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005a98                svcTimerCreate
  .text.svcTimerStart
-                0x00005b5c       0xe0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005b5c                svcTimerStart
+                0x00005ad4       0xe0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005ad4                svcTimerStart
  .text.svcTimerStop
-                0x00005c3c       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005c3c                svcTimerStop
+                0x00005bb4       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005bb4                svcTimerStop
  .text.svcTimerDelete
-                0x00005c94       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005c94                svcTimerDelete
+                0x00005c0c       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005c0c                svcTimerDelete
  .text.svcTimerCall
-                0x00005cf4       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005cf4                svcTimerCall
+                0x00005c6c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005c6c                svcTimerCall
  .text.sysTimerTick
-                0x00005d14       0xbc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005d14                sysTimerTick
+                0x00005c8c       0xbc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005c8c                sysTimerTick
  .text.sysUserTimerWakeupTime
-                0x00005dd0       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005dd0                sysUserTimerWakeupTime
+                0x00005d48       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005d48                sysUserTimerWakeupTime
  .text.sysUserTimerUpdate
-                0x00005de8       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005de8                sysUserTimerUpdate
+                0x00005d60       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005d60                sysUserTimerUpdate
  .text.osTimerCreate
-                0x00005e28       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005e28                osTimerCreate
+                0x00005da0       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005da0                osTimerCreate
  .text.osTimerStart
-                0x00005e8c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005e8c                osTimerStart
+                0x00005e04       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005e04                osTimerStart
  .text.osTimerStop
-                0x00005eac       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005eac                osTimerStop
+                0x00005e24       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005e24                osTimerStop
  .text.osTimerDelete
-                0x00005ecc       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005ecc                osTimerDelete
+                0x00005e44       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005e44                osTimerDelete
  .text.osTimerCall
-                0x00005eec       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005eec                osTimerCall
+                0x00005e64       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005e64                osTimerCall
  .text.osTimerThread
-                0x00005f04       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005f04                osTimerThread
+                0x00005e7c       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005e7c                osTimerThread
  .text.svcSignalSet
-                0x00005f3c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005f3c                svcSignalSet
+                0x00005eb4       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005eb4                svcSignalSet
  .text.svcSignalClear
-                0x00005f68       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005f68                svcSignalClear
+                0x00005ee0       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005ee0                svcSignalClear
  .text.svcSignalWait
-                0x00005f94       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00005f94                svcSignalWait
+                0x00005f0c       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005f0c                svcSignalWait
  .text.isrSignalSet
-                0x00006084       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006084                isrSignalSet
+                0x00005ffc       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00005ffc                isrSignalSet
  .text.osSignalSet
-                0x000060b0       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000060b0                osSignalSet
+                0x00006028       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006028                osSignalSet
  .text.osSignalClear
-                0x000060f0       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000060f0                osSignalClear
+                0x00006068       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006068                osSignalClear
  .text.osSignalWait
-                0x0000610c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000610c                osSignalWait
+                0x00006084       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006084                osSignalWait
  .text.svcMutexCreate
-                0x00006138       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006138                svcMutexCreate
+                0x000060b0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000060b0                svcMutexCreate
  .text.svcMutexWait
-                0x00006158       0x8c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006158                svcMutexWait
+                0x000060d0       0x8c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000060d0                svcMutexWait
  .text.svcMutexRelease
-                0x000061e4       0x24 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000061e4                svcMutexRelease
+                0x0000615c       0x24 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000615c                svcMutexRelease
  .text.svcMutexDelete
-                0x00006208       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006208                svcMutexDelete
+                0x00006180       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006180                svcMutexDelete
  .text.osMutexCreate
-                0x00006228       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006228                osMutexCreate
+                0x000061a0       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000061a0                osMutexCreate
  .text.osMutexWait
-                0x00006274       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006274                osMutexWait
+                0x000061ec       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000061ec                osMutexWait
  .text.osMutexRelease
-                0x00006294       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006294                osMutexRelease
+                0x0000620c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000620c                osMutexRelease
  .text.osMutexDelete
-                0x000062b4       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000062b4                osMutexDelete
+                0x0000622c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000622c                osMutexDelete
  .text.svcSemaphoreCreate
-                0x000062d4       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000062d4                svcSemaphoreCreate
+                0x0000624c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000624c                svcSemaphoreCreate
  .text.svcSemaphoreWait
-                0x00006300       0x88 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006300                svcSemaphoreWait
+                0x00006278       0x88 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006278                svcSemaphoreWait
  .text.svcSemaphoreRelease
-                0x00006388       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006388                svcSemaphoreRelease
+                0x00006300       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006300                svcSemaphoreRelease
  .text.svcSemaphoreDelete
-                0x000063b4       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000063b4                svcSemaphoreDelete
+                0x0000632c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000632c                svcSemaphoreDelete
  .text.isrSemaphoreRelease
-                0x000063d4       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000063d4                isrSemaphoreRelease
+                0x0000634c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000634c                isrSemaphoreRelease
  .text.osSemaphoreCreate
-                0x00006400       0x54 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006400                osSemaphoreCreate
+                0x00006378       0x54 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006378                osSemaphoreCreate
  .text.osSemaphoreWait
-                0x00006454       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006454                osSemaphoreWait
+                0x000063cc       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000063cc                osSemaphoreWait
  .text.osSemaphoreRelease
-                0x00006470       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006470                osSemaphoreRelease
+                0x000063e8       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000063e8                osSemaphoreRelease
  .text.osSemaphoreDelete
-                0x000064b0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000064b0                osSemaphoreDelete
+                0x00006428       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006428                osSemaphoreDelete
  .text.svcPoolCreate
-                0x000064d0       0x30 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000064d0                svcPoolCreate
+                0x00006448       0x30 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006448                svcPoolCreate
  .text.sysPoolAlloc
-                0x00006500       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006500                sysPoolAlloc
+                0x00006478       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006478                sysPoolAlloc
  .text.sysPoolFree
-                0x00006510       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006510                sysPoolFree
+                0x00006488       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006488                sysPoolFree
  .text.osPoolCreate
-                0x0000652c       0x5c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000652c                osPoolCreate
+                0x000064a4       0x5c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000064a4                osPoolCreate
  .text.osPoolAlloc
-                0x00006588       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006588                osPoolAlloc
+                0x00006500       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006500                osPoolAlloc
  .text.osPoolCAlloc
-                0x000065b4       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000065b4                osPoolCAlloc
+                0x0000652c       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000652c                osPoolCAlloc
  .text.osPoolFree
-                0x00006600       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006600                osPoolFree
+                0x00006578       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006578                osPoolFree
  .text.svcMessageCreate
-                0x00006638       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006638                svcMessageCreate
+                0x000065b0       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000065b0                svcMessageCreate
  .text.svcMessagePut
-                0x00006664       0x80 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006664                svcMessagePut
+                0x000065dc       0x80 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000065dc                svcMessagePut
  .text.svcMessageGet
-                0x000066e4       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000066e4                svcMessageGet
+                0x0000665c       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x0000665c                svcMessageGet
  .text.isrMessagePut
-                0x00006774       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006774                isrMessagePut
+                0x000066ec       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000066ec                isrMessagePut
  .text.isrMessageGet
-                0x000067a8       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000067a8                isrMessageGet
+                0x00006720       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006720                isrMessageGet
  .text.osMessageCreate
-                0x000067ec       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000067ec                osMessageCreate
+                0x00006764       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006764                osMessageCreate
  .text.osMessagePut
-                0x00006844       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006844                osMessagePut
+                0x000067bc       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000067bc                osMessagePut
  .text.osMessageGet
-                0x0000688c       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000688c                osMessageGet
+                0x00006804       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006804                osMessageGet
  .text.svcMailCreate
-                0x000068ec       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000068ec                svcMailCreate
+                0x00006864       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006864                svcMailCreate
  .text.sysMailAlloc
-                0x0000693c       0xac /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x0000693c                sysMailAlloc
+                0x000068b4       0xac /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000068b4                sysMailAlloc
  .text.sysMailFree
-                0x000069e8       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x000069e8                sysMailFree
+                0x00006960       0x78 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006960                sysMailFree
  .text.osMailCreate
-                0x00006a60       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006a60                osMailCreate
+                0x000069d8       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x000069d8                osMailCreate
  .text.osMailAlloc
-                0x00006adc       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006adc                osMailAlloc
+                0x00006a54       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006a54                osMailAlloc
  .text.osMailCAlloc
-                0x00006b14       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006b14                osMailCAlloc
+                0x00006a8c       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006a8c                osMailCAlloc
  .text.osMailFree
-                0x00006b74       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006b74                osMailFree
+                0x00006aec       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006aec                osMailFree
  .text.osMailPut
-                0x00006bd4       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006bd4                osMailPut
+                0x00006b4c       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006b4c                osMailPut
  .text.osMailGet
-                0x00006c2c       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006c2c                osMailGet
+                0x00006ba4       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006ba4                osMailGet
  .text.os_suspend
-                0x00006c7c       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006c7c                os_suspend
+                0x00006bf4       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006bf4                os_suspend
  .text.os_resume
-                0x00006c8c       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x00006c8c                os_resume
+                0x00006c04       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x00006c04                os_resume
  .text.rt_init_stack
-                0x00006c9c       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
-                0x00006c9c                rt_init_stack
+                0x00006c14       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+                0x00006c14                rt_init_stack
  .text.rt_ret_val
-                0x00006d4c        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
-                0x00006d4c                rt_ret_val
+                0x00006cc4        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+                0x00006cc4                rt_ret_val
  .text.rt_ret_val2
-                0x00006d54        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
-                0x00006d54                rt_ret_val2
+                0x00006ccc        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+                0x00006ccc                rt_ret_val2
  .text.rt_init_mem
-                0x00006d5c       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
-                0x00006d5c                rt_init_mem
+                0x00006cd4       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+                0x00006cd4                rt_init_mem
  .text.rt_alloc_mem
-                0x00006d78       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
-                0x00006d78                rt_alloc_mem
+                0x00006cf0       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+                0x00006cf0                rt_alloc_mem
  .text.rt_free_mem
-                0x00006dbc       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
-                0x00006dbc                rt_free_mem
+                0x00006d34       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+                0x00006d34                rt_free_mem
  .text._init_box
-                0x00006df8       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
-                0x00006df8                _init_box
+                0x00006d70       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+                0x00006d70                _init_box
  .text.rt_alloc_box
-                0x00006e50       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
-                0x00006e50                rt_alloc_box
+                0x00006dc8       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+                0x00006dc8                rt_alloc_box
  .text._calloc_box
-                0x00006e70       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
-                0x00006e70                _calloc_box
+                0x00006de8       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+                0x00006de8                _calloc_box
  .text.rt_free_box
-                0x00006e90       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
-                0x00006e90                rt_free_box
+                0x00006e08       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+                0x00006e08                rt_free_box
  .text.rt_mut_init
-                0x00006eb8       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
-                0x00006eb8                rt_mut_init
+                0x00006e30       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+                0x00006e30                rt_mut_init
  .text.rt_mut_delete
-                0x00006ec8       0xe0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
-                0x00006ec8                rt_mut_delete
+                0x00006e40       0xe0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+                0x00006e40                rt_mut_delete
  .text.rt_mut_release
-                0x00006fa8      0x108 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
-                0x00006fa8                rt_mut_release
+                0x00006f20      0x108 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+                0x00006f20                rt_mut_release
  .text.rt_mut_wait
-                0x000070b0       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
-                0x000070b0                rt_mut_wait
+                0x00007028       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+                0x00007028                rt_mut_wait
  .text.rt_time_get
-                0x0000712c        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
-                0x0000712c                rt_time_get
+                0x000070a4        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+                0x000070a4                rt_time_get
  .text.rt_dly_wait
-                0x00007138        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
-                0x00007138                rt_dly_wait
+                0x000070b0        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+                0x000070b0                rt_dly_wait
  .text.rt_itv_set
-                0x00007144       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
-                0x00007144                rt_itv_set
+                0x000070bc       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+                0x000070bc                rt_itv_set
  .text.rt_itv_wait
-                0x0000715c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
-                0x0000715c                rt_itv_wait
+                0x000070d4       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+                0x000070d4                rt_itv_wait
  .text.rt_sem_init
-                0x00007188        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x00007188                rt_sem_init
+                0x00007100        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x00007100                rt_sem_init
  .text.rt_sem_delete
-                0x00007194       0x68 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x00007194                rt_sem_delete
+                0x0000710c       0x68 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x0000710c                rt_sem_delete
  .text.rt_sem_send
-                0x000071fc       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x000071fc                rt_sem_send
+                0x00007174       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x00007174                rt_sem_send
  .text.rt_sem_wait
-                0x00007228       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x00007228                rt_sem_wait
+                0x000071a0       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x000071a0                rt_sem_wait
  .text.isr_sem_send
-                0x0000726c       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x0000726c                isr_sem_send
+                0x000071e4       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x000071e4                isr_sem_send
  .text.rt_sem_psh
-                0x0000727c       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
-                0x0000727c                rt_sem_psh
+                0x000071f4       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+                0x000071f4                rt_sem_psh
  .text.rt_mbx_init
-                0x000072b0       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x000072b0                rt_mbx_init
+                0x00007228       0x1c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x00007228                rt_mbx_init
  .text.rt_mbx_send
-                0x000072cc       0x98 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x000072cc                rt_mbx_send
+                0x00007244       0x98 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x00007244                rt_mbx_send
  .text.rt_mbx_wait
-                0x00007364       0xb8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x00007364                rt_mbx_wait
+                0x000072dc       0xb8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x000072dc                rt_mbx_wait
  .text.rt_mbx_check
-                0x0000741c        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x0000741c                rt_mbx_check
+                0x00007394        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x00007394                rt_mbx_check
  .text.isr_mbx_send
-                0x00007424        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x00007424                isr_mbx_send
+                0x0000739c        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x0000739c                isr_mbx_send
  .text.isr_mbx_receive
-                0x00007430       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x00007430                isr_mbx_receive
+                0x000073a8       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x000073a8                isr_mbx_receive
  .text.rt_mbx_psh
-                0x00007488       0xdc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
-                0x00007488                rt_mbx_psh
+                0x00007400       0xdc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+                0x00007400                rt_mbx_psh
  .text.rt_put_prio
-                0x00007564       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x00007564                rt_put_prio
+                0x000074dc       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x000074dc                rt_put_prio
  .text.rt_get_first
-                0x000075b0       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x000075b0                rt_get_first
+                0x00007528       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007528                rt_get_first
  .text.rt_put_rdy_first
-                0x000075d8       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x000075d8                rt_put_rdy_first
+                0x00007550       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007550                rt_put_rdy_first
  .text.rt_get_same_rdy_prio
-                0x000075ec       0x24 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x000075ec                rt_get_same_rdy_prio
+                0x00007564       0x24 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007564                rt_get_same_rdy_prio
  .text.rt_resort_prio
-                0x00007610       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x00007610                rt_resort_prio
+                0x00007588       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007588                rt_resort_prio
  .text.rt_put_dly
-                0x000076a0       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x000076a0                rt_put_dly
+                0x00007618       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007618                rt_put_dly
  .text.rt_dec_dly
-                0x00007704       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x00007704                rt_dec_dly
+                0x0000767c       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x0000767c                rt_dec_dly
  .text.rt_rmv_list
-                0x000077f4       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x000077f4                rt_rmv_list
+                0x0000776c       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x0000776c                rt_rmv_list
  .text.rt_rmv_dly
-                0x00007820       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x00007820                rt_rmv_dly
+                0x00007798       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x00007798                rt_rmv_dly
  .text.rt_psq_enq
-                0x0000784c       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x0000784c                rt_psq_enq
+                0x000077c4       0x44 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x000077c4                rt_psq_enq
  .text.rt_evt_wait
-                0x00007890       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x00007890                rt_evt_wait
+                0x00007808       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x00007808                rt_evt_wait
  .text.rt_evt_set
-                0x000078d8       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x000078d8                rt_evt_set
+                0x00007850       0x58 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x00007850                rt_evt_set
  .text.rt_evt_clr
-                0x00007930       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x00007930                rt_evt_clr
+                0x000078a8       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x000078a8                rt_evt_clr
  .text.isr_evt_set
-                0x00007948       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x00007948                isr_evt_set
+                0x000078c0       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x000078c0                isr_evt_set
  .text.rt_evt_get
-                0x00007968        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x00007968                rt_evt_get
+                0x000078e0        0xc /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x000078e0                rt_evt_get
  .text.rt_evt_psh
-                0x00007974       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
-                0x00007974                rt_evt_psh
+                0x000078ec       0x50 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+                0x000078ec                rt_evt_psh
  .text.rt_suspend
-                0x000079c4       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x000079c4                rt_suspend
+                0x0000793c       0x90 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x0000793c                rt_suspend
  .text.rt_resume
-                0x00007a54       0xf8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007a54                rt_resume
+                0x000079cc       0xf8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x000079cc                rt_resume
  .text.rt_tsk_lock
-                0x00007b4c       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007b4c                rt_tsk_lock
+                0x00007ac4       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007ac4                rt_tsk_lock
  .text.rt_tsk_unlock
-                0x00007bb0       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007bb0                rt_tsk_unlock
+                0x00007b28       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007b28                rt_tsk_unlock
  .text.rt_psh_req
-                0x00007c14       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007c14                rt_psh_req
+                0x00007b8c       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007b8c                rt_psh_req
  .text.rt_pop_req
-                0x00007c34       0x80 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007c34                rt_pop_req
+                0x00007bac       0x80 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007bac                rt_pop_req
  .text.os_tick_init
-                0x00007cb4       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007cb4                os_tick_init
+                0x00007c2c       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007c2c                os_tick_init
  .text.os_tick_val
-                0x00007cf0       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007cf0                os_tick_val
+                0x00007c68       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007c68                os_tick_val
  .text.os_tick_ovf
-                0x00007d04       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007d04                os_tick_ovf
+                0x00007c7c       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007c7c                os_tick_ovf
  .text.os_tick_irqack
-                0x00007d14        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007d14                os_tick_irqack
+                0x00007c8c        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007c8c                os_tick_irqack
  .text.rt_systick
-                0x00007d18       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007d18                rt_systick
+                0x00007c90       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007c90                rt_systick
  .text.rt_stk_check
-                0x00007d54       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x00007d54                rt_stk_check
+                0x00007ccc       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x00007ccc                rt_stk_check
  .text.rt_switch_req
-                0x00007d7c       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007d7c                rt_switch_req
+                0x00007cf4       0x10 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007cf4                rt_switch_req
  .text.rt_dispatch
-                0x00007d8c       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007d8c                rt_dispatch
+                0x00007d04       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007d04                rt_dispatch
  .text.rt_block
-                0x00007dd8       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007dd8                rt_block
+                0x00007d50       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007d50                rt_block
  .text.rt_tsk_pass
-                0x00007e10       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007e10                rt_tsk_pass
+                0x00007d88       0x2c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007d88                rt_tsk_pass
  .text.rt_tsk_self
-                0x00007e3c       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007e3c                rt_tsk_self
+                0x00007db4       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007db4                rt_tsk_self
  .text.rt_tsk_prio
-                0x00007e50       0xb8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007e50                rt_tsk_prio
+                0x00007dc8       0xb8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007dc8                rt_tsk_prio
  .text.rt_tsk_create
-                0x00007f08       0xf4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007f08                rt_tsk_create
+                0x00007e80       0xf4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007e80                rt_tsk_create
  .text.rt_tsk_delete
-                0x00007ffc      0x18c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00007ffc                rt_tsk_delete
+                0x00007f74      0x18c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00007f74                rt_tsk_delete
  .text.rt_sys_init
-                0x00008188       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00008188                rt_sys_init
+                0x00008100       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x00008100                rt_sys_init
  .text.rt_sys_start
-                0x00008278       0x70 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x00008278                rt_sys_start
+                0x000081f0       0x70 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x000081f0                rt_sys_start
  .text.rt_init_robin
-                0x000082e8       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
-                0x000082e8                rt_init_robin
+                0x00008260       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+                0x00008260                rt_init_robin
  .text.rt_chk_robin
-                0x00008300       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
-                0x00008300                rt_chk_robin
- *fill*         0x0000834c        0x4 
+                0x00008278       0x4c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+                0x00008278                rt_chk_robin
+ *fill*         0x000082c4        0x4 
  .text.rt_chk_robin.__stub
-                0x00008350       0x30 linker stubs
+                0x000082c8       0x30 linker stubs
  *(.rodata)
- .rodata        0x00008380       0x3c main.o
-                0x00008380                threadPacketParserDef
-                0x00008390                threadFSMProceedDef
-                0x000083a0                threadDUTProceedDef
-                0x000083b0                message_def
-                0x000083b8                os_mutex_def_MutexMdbReg
- .rodata        0x000083bc      0x240 owen485.o
- .rodata        0x000085fc       0x22 stubs.o
- *fill*         0x0000861e        0x2 
- .rodata        0x00008620       0x7b xprintf.o
- *fill*         0x0000869b        0x1 
- .rodata        0x0000869c       0x68 RTX_Conf_CM.o
-                0x0000869c                os_maxtaskrun
-                0x000086a0                os_stackinfo
-                0x000086a4                os_rrobin
-                0x000086a8                os_tickfreq
-                0x000086ac                os_tickus_i
-                0x000086ae                os_tickus_f
-                0x000086b0                os_trv
-                0x000086b4                os_flags
-                0x000086b8                CMSIS_RTOS_API_Version
-                0x000086bc                CMSIS_RTOS_RTX_Version
-                0x000086c0                os_clockrate
-                0x000086c4                os_timernum
-                0x000086c8                mp_tcb_size
-                0x000086cc                mp_stk_size
-                0x000086d0                os_stack_sz
-                0x000086d4                os_fifo_size
-                0x000086d8                os_thread_def_osTimerThread
-                0x000086e8                os_messageQ_def_osTimerMessageQ
-                0x000086f0                mp_tmr_size
-                0x000086f4                os_thread_def_main
- .rodata        0x00008704        0x8 network.o
-                0x00008704                os_mutex_def_readpackMutex
-                0x00008708                os_mutex_def_sendpackMutex
- .rodata        0x0000870c      0x600 crc.o
-                0x0000870c                crc_table
-                0x00008b0c                crc_table_low
-                0x00008c0c                crc_table_high
- .rodata        0x00008d0c       0x14 param.o
-                0x00008d0c                defBsiParam
- .rodata        0x00008d20      0x414 modbus_udp.o
-                0x00008d20                device_additional_info
-                0x00008d34                proc_PDU_table
+ .rodata        0x000082f8       0x3c main.o
+                0x000082f8                threadPacketParserDef
+                0x00008308                threadFSMProceedDef
+                0x00008318                threadDUTProceedDef
+                0x00008328                message_def
+                0x00008330                os_mutex_def_MutexMdbReg
+ .rodata        0x00008334       0x22 stubs.o
+ *fill*         0x00008356        0x2 
+ .rodata        0x00008358       0x7b xprintf.o
+ *fill*         0x000083d3        0x1 
+ .rodata        0x000083d4       0x68 RTX_Conf_CM.o
+                0x000083d4                os_maxtaskrun
+                0x000083d8                os_stackinfo
+                0x000083dc                os_rrobin
+                0x000083e0                os_tickfreq
+                0x000083e4                os_tickus_i
+                0x000083e6                os_tickus_f
+                0x000083e8                os_trv
+                0x000083ec                os_flags
+                0x000083f0                CMSIS_RTOS_API_Version
+                0x000083f4                CMSIS_RTOS_RTX_Version
+                0x000083f8                os_clockrate
+                0x000083fc                os_timernum
+                0x00008400                mp_tcb_size
+                0x00008404                mp_stk_size
+                0x00008408                os_stack_sz
+                0x0000840c                os_fifo_size
+                0x00008410                os_thread_def_osTimerThread
+                0x00008420                os_messageQ_def_osTimerMessageQ
+                0x00008428                mp_tmr_size
+                0x0000842c                os_thread_def_main
+ .rodata        0x0000843c        0x8 network.o
+                0x0000843c                os_mutex_def_readpackMutex
+                0x00008440                os_mutex_def_sendpackMutex
+ .rodata        0x00008444      0x600 crc.o
+                0x00008444                crc_table
+                0x00008844                crc_table_low
+                0x00008944                crc_table_high
+ .rodata        0x00008a44       0x14 param.o
+                0x00008a44                defBsiParam
+ .rodata        0x00008a58      0x414 modbus_udp.o
+                0x00008a58                device_additional_info
+                0x00008a6c                proc_PDU_table
  *(.rodata*)
  .rodata._global_impure_ptr
-                0x00009134        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
-                0x00009134                _global_impure_ptr
-                0x00009138                . = ALIGN (0x4)
+                0x00008e6c        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
+                0x00008e6c                _global_impure_ptr
+                0x00008e70                . = ALIGN (0x4)
 
-.glue_7         0x00009138        0x0
- .glue_7        0x00009138        0x0 linker stubs
+.glue_7         0x00008e70        0x0
+ .glue_7        0x00008e70        0x0 linker stubs
 
-.glue_7t        0x00009138        0x0
- .glue_7t       0x00009138        0x0 linker stubs
+.glue_7t        0x00008e70        0x0
+ .glue_7t       0x00008e70        0x0 linker stubs
 
-.vfp11_veneer   0x00009138        0x0
- .vfp11_veneer  0x00009138        0x0 linker stubs
+.vfp11_veneer   0x00008e70        0x0
+ .vfp11_veneer  0x00008e70        0x0 linker stubs
 
-.v4_bx          0x00009138        0x0
- .v4_bx         0x00009138        0x0 linker stubs
+.v4_bx          0x00008e70        0x0
+ .v4_bx         0x00008e70        0x0 linker stubs
 
-.iplt           0x00009138        0x0
- .iplt          0x00009138        0x0 main.o
+.iplt           0x00008e70        0x0
+ .iplt          0x00008e70        0x0 main.o
 
-.ARM.exidx      0x00009138        0x8
-                0x00009138                . = ALIGN (0x4)
+.ARM.exidx      0x00008e70        0x8
+                0x00008e70                . = ALIGN (0x4)
  *(.ARM.exidx)
- .ARM.exidx     0x00009138        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+ .ARM.exidx     0x00008e70        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
                                  0x48 (size before relaxing)
- .ARM.exidx     0x00009140        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x00008e78        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
                                   0x8 (size before relaxing)
-                0x00009140                . = ALIGN (0x4)
-                0x00009140                _data_flash = .
+                0x00008e78                . = ALIGN (0x4)
+                0x00008e78                _data_flash = .
 
-.data           0x20000000      0x858 load address 0x00009140
+.data           0x20000000      0x858 load address 0x00008e78
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _data_begin = .
  *(.data)
  .data          0x20000000        0x0 main.o
  .data          0x20000000        0x0 startup.o
- .data          0x20000000        0x0 owen485.o
+ .data          0x20000000        0x0 mdb485.o
  .data          0x20000000        0x4 stubs.o
                 0x20000000                environ
  .data          0x20000004        0x0 mdb232.o
@@ -983,17 +983,17 @@ Linker script and memory map
  *(.init_array)
                 0x20000858                . = ALIGN (0x4)
                 0x20000858                _data_end = .
-                0x00009998                _ram2_flash = (_data_flash + (_data_end - _data_begin))
+                0x000096d0                _ram2_flash = (_data_flash + (_data_end - _data_begin))
 
-.igot.plt       0x20000858        0x0 load address 0x00009998
+.igot.plt       0x20000858        0x0 load address 0x000096d0
  .igot.plt      0x20000858        0x0 main.o
 
-.bss            0x20000858     0x5858 load address 0x00009998
+.bss            0x20000858     0x5850 load address 0x000096d0
                 0x20000858                . = ALIGN (0x4)
                 0x20000858                _bss_begin = .
                 0x20000858                __bss_start__ = _bss_begin
  *(.bss)
- .bss           0x20000858       0x4c main.o
+ .bss           0x20000858       0x50 main.o
                 0x20000858                thrPacketParserId
                 0x2000085c                thrFSMProcceedId
                 0x20000860                thrDUTProcceedId
@@ -1002,135 +1002,134 @@ Linker script and memory map
                 0x20000888                mutexMdbRegId
                 0x2000088c                os_mutex_cb_MutexMdbReg
                 0x2000089c                ddsfreq
- .bss           0x200008a4        0x0 startup.o
- .bss           0x200008a4       0x34 owen485.o
-                0x200008a4                rx_buffer
-                0x200008d0                rxsize
-                0x200008d4                rxoffs
- .bss           0x200008d8        0x8 stubs.o
-                0x200008d8                __env
- .bss           0x200008e0       0x24 mdb232.o
-                0x20000900                mdb232_rxsize
- .bss           0x20000904        0xc xprintf.o
-                0x20000904                xfunc_out
-                0x2000090c                xfunc_in
- .bss           0x20000910     0x4414 RTX_Conf_CM.o
-                0x20000910                mp_tcb
-                0x200009f0                mp_stk
-                0x20003a00                os_stack_mem
-                0x20004c60                os_fifo
-                0x20004ce4                os_active_TCB
-                0x20004cf4                osThreadId_osTimerThread
-                0x20004cf8                os_messageQ_q_osTimerMessageQ
-                0x20004d18                osMessageQId_osTimerMessageQ
-                0x20004d1c                os_tmr
-                0x20004d20                m_tmr
- .bss           0x20004d24        0x0 system.o
- .bss           0x20004d24       0x18 ethfunc.o
-                0x20004d24                Remote_MAC
-                0x20004d30                fFrameRdy
-                0x20004d34                fFrameErr
-                0x20004d38                Identification
-                0x20004d3a                SequenceNumber
- .bss           0x20004d3c      0xe2c network.o
-                0x20004d3c                ReplyICMPCounter
-                0x20004d40                Frame
-                0x20005320                remPort
-                0x20005324                os_mutex_cb_readpackMutex
-                0x20005334                readpackMutexId
-                0x20005338                os_mutex_cb_sendpackMutex
-                0x20005348                sendpackMutexId
- .bss           0x20005b68        0x0 crc.o
- .bss           0x20005b68        0x0 eeprom.o
- .bss           0x20005b68       0x14 param.o
-                0x20005b68                bsiParam
- .bss           0x20005b7c      0x444 modbus_udp.o
-                0x20005d84                register_tab
-                0x20005db4                input_registers_tab
-                0x20005dbc                modbus_error
- .bss           0x20005fc0       0x30 fsm.o
-                0x20005fec                fsmdbg
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_dvmd_tls.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
- .bss           0x20005ff0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .bss           0x20005ff0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .bss           0x20005ff0        0x3 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .bss           0x20005ff3        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .bss           0x20005ff3        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
- .bss           0x20005ff3        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(svc_table.o)
- .bss           0x20005ff3        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
- .bss           0x20005ff3        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_aeabi_uldivmod.o)
- .bss           0x20005ff3        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
- .bss           0x20005ff3        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
- .bss           0x20005ff3        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzdi2.o)
- .bss           0x20005ff3        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzsi2.o)
+ .bss           0x200008a8        0x0 startup.o
+ .bss           0x200008a8       0x24 mdb485.o
+                0x200008c8                mdb485_rxsize
+ .bss           0x200008cc        0x8 stubs.o
+                0x200008cc                __env
+ .bss           0x200008d4       0x24 mdb232.o
+                0x200008f4                mdb232_rxsize
+ .bss           0x200008f8        0xc xprintf.o
+                0x200008f8                xfunc_out
+                0x20000900                xfunc_in
+ *fill*         0x20000904        0x4 
+ .bss           0x20000908     0x4414 RTX_Conf_CM.o
+                0x20000908                mp_tcb
+                0x200009e8                mp_stk
+                0x200039f8                os_stack_mem
+                0x20004c58                os_fifo
+                0x20004cdc                os_active_TCB
+                0x20004cec                osThreadId_osTimerThread
+                0x20004cf0                os_messageQ_q_osTimerMessageQ
+                0x20004d10                osMessageQId_osTimerMessageQ
+                0x20004d14                os_tmr
+                0x20004d18                m_tmr
+ .bss           0x20004d1c        0x0 system.o
+ .bss           0x20004d1c       0x18 ethfunc.o
+                0x20004d1c                Remote_MAC
+                0x20004d28                fFrameRdy
+                0x20004d2c                fFrameErr
+                0x20004d30                Identification
+                0x20004d32                SequenceNumber
+ .bss           0x20004d34      0xe2c network.o
+                0x20004d34                ReplyICMPCounter
+                0x20004d38                Frame
+                0x20005318                remPort
+                0x2000531c                os_mutex_cb_readpackMutex
+                0x2000532c                readpackMutexId
+                0x20005330                os_mutex_cb_sendpackMutex
+                0x20005340                sendpackMutexId
+ .bss           0x20005b60        0x0 crc.o
+ .bss           0x20005b60        0x0 eeprom.o
+ .bss           0x20005b60       0x14 param.o
+                0x20005b60                bsiParam
+ .bss           0x20005b74      0x444 modbus_udp.o
+                0x20005d7c                register_tab
+                0x20005dac                input_registers_tab
+                0x20005db4                modbus_error
+ .bss           0x20005fb8       0x30 fsm.o
+                0x20005fe4                fsmdbg
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_dvmd_tls.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-impure.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .bss           0x20005fe8        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .bss           0x20005fe8        0x3 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .bss           0x20005feb        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .bss           0x20005feb        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+ .bss           0x20005feb        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(svc_table.o)
+ .bss           0x20005feb        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+ .bss           0x20005feb        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_aeabi_uldivmod.o)
+ .bss           0x20005feb        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
+ .bss           0x20005feb        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
+ .bss           0x20005feb        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzdi2.o)
+ .bss           0x20005feb        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_clzsi2.o)
  *(.bss*)
- *fill*         0x20005ff3        0x1 
+ *fill*         0x20005feb        0x1 
  .bss.__malloc_max_total_mem
-                0x20005ff4        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
-                0x20005ff4                __malloc_max_total_mem
+                0x20005fec        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+                0x20005fec                __malloc_max_total_mem
  .bss.__malloc_max_sbrked_mem
-                0x20005ff8        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
-                0x20005ff8                __malloc_max_sbrked_mem
+                0x20005ff0        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+                0x20005ff0                __malloc_max_sbrked_mem
  .bss.__malloc_top_pad
-                0x20005ffc        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
-                0x20005ffc                __malloc_top_pad
+                0x20005ff4        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+                0x20005ff4                __malloc_top_pad
  .bss.__malloc_current_mallinfo
-                0x20006000       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
-                0x20006000                __malloc_current_mallinfo
+                0x20005ff8       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+                0x20005ff8                __malloc_current_mallinfo
  *(COMMON)
- COMMON         0x20006028        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
-                0x20006028                errno
- COMMON         0x2000602c        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
-                0x2000602c                os_initialized
-                0x2000602d                os_running
-                0x20006030                os_timer_head
- COMMON         0x20006034        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
-                0x20006034                os_time
- COMMON         0x20006038       0x30 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
-                0x20006038                os_rdy
-                0x20006050                os_dly
- COMMON         0x20006068        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
-                0x20006068                os_tick_irqn
- COMMON         0x2000606c       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
-                0x2000606c                os_tsk
-                0x20006074                os_idle_TCB
- COMMON         0x200060a8        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
-                0x200060a8                os_robin
-                0x200060b0                . = ALIGN (0x4)
-                0x200060b0                _bss_end = .
-                0x200060b0                __bss_end__ = _bss_end
+ COMMON         0x20006020        0x4 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+                0x20006020                errno
+ COMMON         0x20006024        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+                0x20006024                os_initialized
+                0x20006025                os_running
+                0x20006028                os_timer_head
+ COMMON         0x2000602c        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+                0x2000602c                os_time
+ COMMON         0x20006030       0x30 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+                0x20006030                os_rdy
+                0x20006048                os_dly
+ COMMON         0x20006060        0x4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+                0x20006060                os_tick_irqn
+ COMMON         0x20006064       0x3c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+                0x20006064                os_tsk
+                0x2000606c                os_idle_TCB
+ COMMON         0x200060a0        0x8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+                0x200060a0                os_robin
+                0x200060a8                . = ALIGN (0x4)
+                0x200060a8                _bss_end = .
+                0x200060a8                __bss_end__ = _bss_end
                 0x00000400                _stack_size = 0x400
                 0x20008000                _stack_end = (ORIGIN (RAM1) + LENGTH (RAM1))
                 0x20007c00                _stack_begin = (_stack_end - _stack_size)
                 0x20007c00                . = _stack_begin
 
-._stack         0x200060b0      0x400 load address 0x0000f1f0
-                0x200064b0                . = (. + _stack_size)
- *fill*         0x200060b0      0x400 
+._stack         0x200060a8      0x400 load address 0x0000ef20
+                0x200064a8                . = (. + _stack_size)
+ *fill*         0x200060a8      0x400 
 
-.ramfunc        0x20100000      0x2a0 load address 0x00009998
+.ramfunc        0x20100000      0x2a0 load address 0x000096d0
                 0x20100000                . = ALIGN (0x4)
                 0x20100000                _ram2_begin = .
  *(.ramfunc)
@@ -1142,7 +1141,7 @@ Linker script and memory map
                 0x201002a0                _ram2_end = .
 LOAD main.o
 LOAD startup.o
-LOAD owen485.o
+LOAD mdb485.o
 LOAD stubs.o
 LOAD mdb232.o
 LOAD xprintf.o
@@ -1163,74 +1162,74 @@ LOAD /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a
 END GROUP
 OUTPUT(blink.elf elf32-littlearm)
 
-.ARM.extab      0x201002a0        0x0 load address 0x00009c38
+.ARM.extab      0x201002a0        0x0 load address 0x00009970
  .ARM.extab     0x201002a0        0x0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
  .ARM.extab     0x201002a0        0x0 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
 
-.rel.dyn        0x201002a0        0x0 load address 0x00009c38
+.rel.dyn        0x201002a0        0x0 load address 0x00009970
  .rel.iplt      0x201002a0        0x0 main.o
 
-.debug_info     0x00000000    0x10192
- .debug_info    0x00000000      0x8eb main.o
- .debug_info    0x000008eb      0x112 startup.o
- .debug_info    0x000009fd      0x968 owen485.o
- .debug_info    0x00001365      0x6f8 stubs.o
- .debug_info    0x00001a5d      0x608 mdb232.o
- .debug_info    0x00002065      0x4c9 xprintf.o
- .debug_info    0x0000252e      0x489 RTX_Conf_CM.o
- .debug_info    0x000029b7      0x879 system.o
- .debug_info    0x00003230      0x96f ethfunc.o
- .debug_info    0x00003b9f      0x8d5 network.o
- .debug_info    0x00004474      0x1bc crc.o
- .debug_info    0x00004630      0x2fa eeprom.o
- .debug_info    0x0000492a      0x383 param.o
- .debug_info    0x00004cad      0x84b modbus_udp.o
- .debug_info    0x000054f8      0x2c6 fsm.o
- .debug_info    0x000057be     0x5d03 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .debug_info    0x0000b4c1      0x3b3 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .debug_info    0x0000b874      0x1d5 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .debug_info    0x0000ba49      0x312 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .debug_info    0x0000bd5b      0x651 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .debug_info    0x0000c3ac      0x357 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .debug_info    0x0000c703      0x6f0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .debug_info    0x0000cdf3      0x9e6 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .debug_info    0x0000d7d9      0x8ab /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .debug_info    0x0000e084      0x5f4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .debug_info    0x0000e678      0x971 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .debug_info    0x0000efe9      0xd79 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .debug_info    0x0000fd62       0x71 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
- .debug_info    0x0000fdd3      0x3bf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+.debug_info     0x00000000    0x102a5
+ .debug_info    0x00000000      0xb95 main.o
+ .debug_info    0x00000b95      0x112 startup.o
+ .debug_info    0x00000ca7      0x7ab mdb485.o
+ .debug_info    0x00001452      0x6f8 stubs.o
+ .debug_info    0x00001b4a      0x608 mdb232.o
+ .debug_info    0x00002152      0x4c9 xprintf.o
+ .debug_info    0x0000261b      0x489 RTX_Conf_CM.o
+ .debug_info    0x00002aa4      0x89f system.o
+ .debug_info    0x00003343      0x96f ethfunc.o
+ .debug_info    0x00003cb2      0x8d5 network.o
+ .debug_info    0x00004587      0x1bc crc.o
+ .debug_info    0x00004743      0x2fa eeprom.o
+ .debug_info    0x00004a3d      0x383 param.o
+ .debug_info    0x00004dc0      0x84b modbus_udp.o
+ .debug_info    0x0000560b      0x2c6 fsm.o
+ .debug_info    0x000058d1     0x5d03 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_info    0x0000b5d4      0x3b3 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_info    0x0000b987      0x1d5 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_info    0x0000bb5c      0x312 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_info    0x0000be6e      0x651 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_info    0x0000c4bf      0x357 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_info    0x0000c816      0x6f0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_info    0x0000cf06      0x9e6 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_info    0x0000d8ec      0x8ab /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_info    0x0000e197      0x5f4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_info    0x0000e78b      0x971 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_info    0x0000f0fc      0xd79 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_info    0x0000fe75       0x71 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+ .debug_info    0x0000fee6      0x3bf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
 
-.debug_abbrev   0x00000000     0x3338
- .debug_abbrev  0x00000000      0x250 main.o
- .debug_abbrev  0x00000250       0xab startup.o
- .debug_abbrev  0x000002fb      0x222 owen485.o
- .debug_abbrev  0x0000051d      0x1a8 stubs.o
- .debug_abbrev  0x000006c5      0x1eb mdb232.o
- .debug_abbrev  0x000008b0      0x194 xprintf.o
- .debug_abbrev  0x00000a44      0x150 RTX_Conf_CM.o
- .debug_abbrev  0x00000b94      0x14a system.o
- .debug_abbrev  0x00000cde      0x269 ethfunc.o
- .debug_abbrev  0x00000f47      0x269 network.o
- .debug_abbrev  0x000011b0       0xb3 crc.o
- .debug_abbrev  0x00001263      0x143 eeprom.o
- .debug_abbrev  0x000013a6      0x135 param.o
- .debug_abbrev  0x000014db      0x1ce modbus_udp.o
- .debug_abbrev  0x000016a9      0x111 fsm.o
- .debug_abbrev  0x000017ba      0x499 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .debug_abbrev  0x00001c53      0x18b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .debug_abbrev  0x00001dde      0x12b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .debug_abbrev  0x00001f09      0x1a8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .debug_abbrev  0x000020b1      0x167 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .debug_abbrev  0x00002218      0x141 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .debug_abbrev  0x00002359      0x181 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .debug_abbrev  0x000024da      0x23d /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .debug_abbrev  0x00002717      0x315 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .debug_abbrev  0x00002a2c      0x1d0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .debug_abbrev  0x00002bfc      0x2ba /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .debug_abbrev  0x00002eb6      0x344 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .debug_abbrev  0x000031fa       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
- .debug_abbrev  0x0000320e      0x12a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+.debug_abbrev   0x00000000     0x339c
+ .debug_abbrev  0x00000000      0x2c0 main.o
+ .debug_abbrev  0x000002c0       0xab startup.o
+ .debug_abbrev  0x0000036b      0x216 mdb485.o
+ .debug_abbrev  0x00000581      0x1a8 stubs.o
+ .debug_abbrev  0x00000729      0x1eb mdb232.o
+ .debug_abbrev  0x00000914      0x194 xprintf.o
+ .debug_abbrev  0x00000aa8      0x150 RTX_Conf_CM.o
+ .debug_abbrev  0x00000bf8      0x14a system.o
+ .debug_abbrev  0x00000d42      0x269 ethfunc.o
+ .debug_abbrev  0x00000fab      0x269 network.o
+ .debug_abbrev  0x00001214       0xb3 crc.o
+ .debug_abbrev  0x000012c7      0x143 eeprom.o
+ .debug_abbrev  0x0000140a      0x135 param.o
+ .debug_abbrev  0x0000153f      0x1ce modbus_udp.o
+ .debug_abbrev  0x0000170d      0x111 fsm.o
+ .debug_abbrev  0x0000181e      0x499 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_abbrev  0x00001cb7      0x18b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_abbrev  0x00001e42      0x12b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_abbrev  0x00001f6d      0x1a8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_abbrev  0x00002115      0x167 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_abbrev  0x0000227c      0x141 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_abbrev  0x000023bd      0x181 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_abbrev  0x0000253e      0x23d /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_abbrev  0x0000277b      0x315 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_abbrev  0x00002a90      0x1d0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_abbrev  0x00002c60      0x2ba /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_abbrev  0x00002f1a      0x344 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_abbrev  0x0000325e       0x14 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+ .debug_abbrev  0x00003272      0x12a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
 
 .debug_aranges  0x00000000      0x850
  .debug_aranges
@@ -1238,7 +1237,7 @@ OUTPUT(blink.elf elf32-littlearm)
  .debug_aranges
                 0x00000020       0x20 startup.o
  .debug_aranges
-                0x00000040       0x20 owen485.o
+                0x00000040       0x20 mdb485.o
  .debug_aranges
                 0x00000060       0x20 stubs.o
  .debug_aranges
@@ -1292,100 +1291,100 @@ OUTPUT(blink.elf elf32-littlearm)
  .debug_aranges
                 0x00000828       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
 
-.debug_line     0x00000000     0x4232
- .debug_line    0x00000000      0x1a2 main.o
- .debug_line    0x000001a2       0x59 startup.o
- .debug_line    0x000001fb      0x2c0 owen485.o
- .debug_line    0x000004bb      0x23c stubs.o
- .debug_line    0x000006f7      0x1f7 mdb232.o
- .debug_line    0x000008ee      0x2e3 xprintf.o
- .debug_line    0x00000bd1      0x10b RTX_Conf_CM.o
- .debug_line    0x00000cdc      0x188 system.o
- .debug_line    0x00000e64      0x2b2 ethfunc.o
- .debug_line    0x00001116      0x2e5 network.o
- .debug_line    0x000013fb       0xcc crc.o
- .debug_line    0x000014c7      0x1e4 eeprom.o
- .debug_line    0x000016ab      0x165 param.o
- .debug_line    0x00001810      0x282 modbus_udp.o
- .debug_line    0x00001a92       0xff fsm.o
- .debug_line    0x00001b91     0x1297 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .debug_line    0x00002e28       0xcf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .debug_line    0x00002ef7       0xd2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .debug_line    0x00002fc9      0x121 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .debug_line    0x000030ea      0x19b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .debug_line    0x00003285       0xa2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .debug_line    0x00003327      0x14b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .debug_line    0x00003472      0x25a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .debug_line    0x000036cc      0x25f /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .debug_line    0x0000392b      0x15b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .debug_line    0x00003a86      0x2cf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .debug_line    0x00003d55      0x35a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .debug_line    0x000040af       0xe1 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
- .debug_line    0x00004190       0xa2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+.debug_line     0x00000000     0x421d
+ .debug_line    0x00000000      0x204 main.o
+ .debug_line    0x00000204       0x59 startup.o
+ .debug_line    0x0000025d      0x240 mdb485.o
+ .debug_line    0x0000049d      0x23c stubs.o
+ .debug_line    0x000006d9      0x1f7 mdb232.o
+ .debug_line    0x000008d0      0x2e3 xprintf.o
+ .debug_line    0x00000bb3      0x10b RTX_Conf_CM.o
+ .debug_line    0x00000cbe      0x191 system.o
+ .debug_line    0x00000e4f      0x2b2 ethfunc.o
+ .debug_line    0x00001101      0x2e5 network.o
+ .debug_line    0x000013e6       0xcc crc.o
+ .debug_line    0x000014b2      0x1e4 eeprom.o
+ .debug_line    0x00001696      0x165 param.o
+ .debug_line    0x000017fb      0x282 modbus_udp.o
+ .debug_line    0x00001a7d       0xff fsm.o
+ .debug_line    0x00001b7c     0x1297 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_line    0x00002e13       0xcf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_line    0x00002ee2       0xd2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_line    0x00002fb4      0x121 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_line    0x000030d5      0x19b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_line    0x00003270       0xa2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_line    0x00003312      0x14b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_line    0x0000345d      0x25a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_line    0x000036b7      0x25f /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_line    0x00003916      0x15b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_line    0x00003a71      0x2cf /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_line    0x00003d40      0x35a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_line    0x0000409a       0xe1 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm0.o)
+ .debug_line    0x0000417b       0xa2 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
 
-.debug_str      0x00000000     0x2a04
- .debug_str     0x00000000      0x73f main.o
-                                0x7b6 (size before relaxing)
- .debug_str     0x0000073f       0xae startup.o
+.debug_str      0x00000000     0x2a0b
+ .debug_str     0x00000000      0x9a8 main.o
+                                0xa29 (size before relaxing)
+ .debug_str     0x000009a8       0xae startup.o
                                 0x190 (size before relaxing)
- .debug_str     0x000007ed      0x356 owen485.o
-                                0x54e (size before relaxing)
- .debug_str     0x00000b43      0x1f1 stubs.o
+ .debug_str     0x00000a56      0x115 mdb485.o
+                                0x559 (size before relaxing)
+ .debug_str     0x00000b6b      0x1f1 stubs.o
                                 0x3dc (size before relaxing)
- .debug_str     0x00000d34       0x8c mdb232.o
+ .debug_str     0x00000d5c       0x64 mdb232.o
                                 0x4cf (size before relaxing)
- .debug_str     0x00000dc0       0xa9 xprintf.o
+ .debug_str     0x00000dc0       0xa4 xprintf.o
                                 0x1c8 (size before relaxing)
- .debug_str     0x00000e69      0x201 RTX_Conf_CM.o
+ .debug_str     0x00000e64      0x201 RTX_Conf_CM.o
                                 0x4d8 (size before relaxing)
- .debug_str     0x0000106a      0x1cd system.o
-                                0x6b3 (size before relaxing)
- .debug_str     0x00001237      0x277 ethfunc.o
+ .debug_str     0x00001065      0x1cd system.o
+                                0x6ca (size before relaxing)
+ .debug_str     0x00001232      0x277 ethfunc.o
                                 0x734 (size before relaxing)
- .debug_str     0x000014ae      0x12d network.o
+ .debug_str     0x000014a9      0x12d network.o
                                 0x645 (size before relaxing)
- .debug_str     0x000015db       0x48 crc.o
+ .debug_str     0x000015d6       0x48 crc.o
                                 0x1a6 (size before relaxing)
- .debug_str     0x00001623       0x84 eeprom.o
+ .debug_str     0x0000161e       0x89 eeprom.o
                                 0x2a9 (size before relaxing)
  .debug_str     0x000016a7       0x89 param.o
                                 0x1ff (size before relaxing)
- .debug_str     0x00001730      0x221 modbus_udp.o
+ .debug_str     0x00001730      0x228 modbus_udp.o
                                 0x46c (size before relaxing)
- .debug_str     0x00001951       0x48 fsm.o
+ .debug_str     0x00001958       0x48 fsm.o
                                 0x243 (size before relaxing)
- .debug_str     0x00001999      0xc2e /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_str     0x000019a0      0xc2e /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
                                0x135d (size before relaxing)
- .debug_str     0x000025c7       0x49 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_str     0x000025ce       0x49 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
                                 0x282 (size before relaxing)
- .debug_str     0x00002610       0x3d /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_str     0x00002617       0x3d /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
                                 0x19e (size before relaxing)
- .debug_str     0x0000264d       0x37 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_str     0x00002654       0x37 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
                                 0x208 (size before relaxing)
- .debug_str     0x00002684       0x32 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_str     0x0000268b       0x32 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
                                 0x305 (size before relaxing)
- .debug_str     0x000026b6       0x41 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_str     0x000026bd       0x41 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
                                 0x281 (size before relaxing)
- .debug_str     0x000026f7       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_str     0x000026fe       0x34 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
                                 0x34c (size before relaxing)
- .debug_str     0x0000272b       0x32 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_str     0x00002732       0x32 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
                                 0x3b7 (size before relaxing)
- .debug_str     0x0000275d       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_str     0x00002764       0xb0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
                                 0x394 (size before relaxing)
- .debug_str     0x0000280d       0x6b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_str     0x00002814       0x6b /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
                                 0x35b (size before relaxing)
- .debug_str     0x00002878       0xf4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_str     0x0000287f       0xf4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
                                 0x4aa (size before relaxing)
- .debug_str     0x0000296c       0x8a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_str     0x00002973       0x8a /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
                                 0x528 (size before relaxing)
- .debug_str     0x000029f6        0xe /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+ .debug_str     0x000029fd        0xe /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
                                 0x2ab (size before relaxing)
 
 .comment        0x00000000       0x6e
  .comment       0x00000000       0x6e main.o
                                  0x6f (size before relaxing)
  .comment       0x0000006e       0x6f startup.o
- .comment       0x0000006e       0x6f owen485.o
+ .comment       0x0000006e       0x6f mdb485.o
  .comment       0x0000006e       0x6f stubs.o
  .comment       0x0000006e       0x6f mdb232.o
  .comment       0x0000006e       0x6f xprintf.o
@@ -1419,7 +1418,7 @@ OUTPUT(blink.elf elf32-littlearm)
  .ARM.attributes
                 0x00000031       0x31 startup.o
  .ARM.attributes
-                0x00000062       0x31 owen485.o
+                0x00000062       0x31 mdb485.o
  .ARM.attributes
                 0x00000093       0x31 stubs.o
  .ARM.attributes
@@ -1520,68 +1519,67 @@ OUTPUT(blink.elf elf32-littlearm)
                 0x00000000                SVC_Count
                 0x00000000                SVC_Table
 
-.debug_frame    0x00000000     0x2368
- .debug_frame   0x00000000      0x11c main.o
- .debug_frame   0x0000011c       0x4c startup.o
- .debug_frame   0x00000168      0x14c owen485.o
- .debug_frame   0x000002b4      0x260 stubs.o
- .debug_frame   0x00000514      0x10c mdb232.o
- .debug_frame   0x00000620      0x170 xprintf.o
- .debug_frame   0x00000790       0x5c RTX_Conf_CM.o
- .debug_frame   0x000007ec       0xc4 system.o
- .debug_frame   0x000008b0      0x168 ethfunc.o
- .debug_frame   0x00000a18      0x14c network.o
- .debug_frame   0x00000b64       0x50 crc.o
- .debug_frame   0x00000bb4       0xc8 eeprom.o
- .debug_frame   0x00000c7c      0x10c param.o
- .debug_frame   0x00000d88      0x1b4 modbus_udp.o
- .debug_frame   0x00000f3c       0x8c fsm.o
- .debug_frame   0x00000fc8       0x20 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
- .debug_frame   0x00000fe8       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
- .debug_frame   0x00001010       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
- .debug_frame   0x00001038       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
- .debug_frame   0x00001064       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
- .debug_frame   0x00001090       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
- .debug_frame   0x000010bc       0x48 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
- .debug_frame   0x00001104       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
- .debug_frame   0x00001140       0x54 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x00001194       0x54 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
- .debug_frame   0x000011e8       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
- .debug_frame   0x00001224       0x30 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
- .debug_frame   0x00001254       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
- .debug_frame   0x00001280      0x940 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .debug_frame   0x00001bc0       0x5c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .debug_frame   0x00001c1c       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .debug_frame   0x00001c64       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .debug_frame   0x00001cc8       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .debug_frame   0x00001d44       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .debug_frame   0x00001da4       0xa0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .debug_frame   0x00001e44       0xb4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .debug_frame   0x00001ef8      0x100 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .debug_frame   0x00001ff8       0x94 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .debug_frame   0x0000208c      0x108 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .debug_frame   0x00002194      0x12c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .debug_frame   0x000022c0       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
- .debug_frame   0x000022f8       0x34 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
- .debug_frame   0x0000232c       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
+.debug_frame    0x00000000     0x2424
+ .debug_frame   0x00000000      0x178 main.o
+ .debug_frame   0x00000178       0x4c startup.o
+ .debug_frame   0x000001c4      0x18c mdb485.o
+ .debug_frame   0x00000350      0x260 stubs.o
+ .debug_frame   0x000005b0      0x10c mdb232.o
+ .debug_frame   0x000006bc      0x170 xprintf.o
+ .debug_frame   0x0000082c       0x5c RTX_Conf_CM.o
+ .debug_frame   0x00000888       0xe4 system.o
+ .debug_frame   0x0000096c      0x168 ethfunc.o
+ .debug_frame   0x00000ad4      0x14c network.o
+ .debug_frame   0x00000c20       0x50 crc.o
+ .debug_frame   0x00000c70       0xc8 eeprom.o
+ .debug_frame   0x00000d38      0x10c param.o
+ .debug_frame   0x00000e44      0x1b4 modbus_udp.o
+ .debug_frame   0x00000ff8       0x8c fsm.o
+ .debug_frame   0x00001084       0x20 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivsi3.o)
+ .debug_frame   0x000010a4       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-atexit.o)
+ .debug_frame   0x000010cc       0x28 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-exit.o)
+ .debug_frame   0x000010f4       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-fini.o)
+ .debug_frame   0x00001120       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-init.o)
+ .debug_frame   0x0000114c       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-memset.o)
+ .debug_frame   0x00001178       0x48 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-reent.o)
+ .debug_frame   0x000011c0       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__atexit.o)
+ .debug_frame   0x000011fc       0x54 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x00001250       0x54 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-freer.o)
+ .debug_frame   0x000012a4       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mallocr.o)
+ .debug_frame   0x000012e0       0x30 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-mlock.o)
+ .debug_frame   0x00001310       0x2c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/arm-none-eabi/lib/armv6-m//libc.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000133c      0x940 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_frame   0x00001c7c       0x5c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_frame   0x00001cd8       0x48 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_frame   0x00001d20       0x64 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_frame   0x00001d84       0x7c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_frame   0x00001e00       0x60 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_frame   0x00001e60       0xa0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_frame   0x00001f00       0xb4 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_frame   0x00001fb4      0x100 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_frame   0x000020b4       0x94 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_frame   0x00002148      0x108 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_frame   0x00002250      0x12c /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_frame   0x0000237c       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+ .debug_frame   0x000023b4       0x34 /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_muldi3.o)
+ .debug_frame   0x000023e8       0x3c /home/smolvik/gcc-arm-none-eabi-5_4-2016q3/lib/gcc/arm-none-eabi/5.4.1/armv6-m//libgcc.a(_udivmoddi4.o)
 
-.debug_ranges   0x00000000      0xc00
- .debug_ranges  0x00000000       0x18 owen485.o
- .debug_ranges  0x00000018       0x30 eeprom.o
- .debug_ranges  0x00000048       0x18 modbus_udp.o
- .debug_ranges  0x00000060      0x6c0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
- .debug_ranges  0x00000720       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
- .debug_ranges  0x00000740       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
- .debug_ranges  0x00000760       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
- .debug_ranges  0x00000788       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
- .debug_ranges  0x000007b0       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
- .debug_ranges  0x000007d8       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
- .debug_ranges  0x00000810       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
- .debug_ranges  0x00000850       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
- .debug_ranges  0x00000940       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
- .debug_ranges  0x00000978       0xf8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
- .debug_ranges  0x00000a70      0x178 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
- .debug_ranges  0x00000be8       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
+.debug_ranges   0x00000000      0xbe8
+ .debug_ranges  0x00000000       0x30 eeprom.o
+ .debug_ranges  0x00000030       0x18 modbus_udp.o
+ .debug_ranges  0x00000048      0x6c0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)
+ .debug_ranges  0x00000708       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(hal_cm.o)
+ .debug_ranges  0x00000728       0x20 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_memory.o)
+ .debug_ranges  0x00000748       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_membox.o)
+ .debug_ranges  0x00000770       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mutex.o)
+ .debug_ranges  0x00000798       0x28 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_time.o)
+ .debug_ranges  0x000007c0       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_semaphore.o)
+ .debug_ranges  0x000007f8       0x40 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_mailbox.o)
+ .debug_ranges  0x00000838       0xf0 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_list.o)
+ .debug_ranges  0x00000928       0x38 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_event.o)
+ .debug_ranges  0x00000960       0xf8 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_system.o)
+ .debug_ranges  0x00000a58      0x178 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_task.o)
+ .debug_ranges  0x00000bd0       0x18 /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_robin.o)
 
 .debug_loc      0x00000000     0x7286
  .debug_loc     0x00000000     0x4a8d /home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC/libRTX_CM0.a(rt_cmsis.o)

@@ -61,7 +61,10 @@ mdb232.o: mdb232.c
 crc.o: crc.c
 	$(CC) $(CFLAGS) -o $@ $<
 	
-owen485.o: owen485.c
+#owen485.o: owen485.c
+#	$(CC) $(CFLAGS) -o $@ $<	
+
+mdb485.o: mdb485.c
 	$(CC) $(CFLAGS) -o $@ $<	
 	
 eeprom.o: eeprom.c
@@ -73,7 +76,7 @@ param.o: param.c
 main.o: main.c
 	$(CC) $(CFLAGS) -o $@ $<
 
-blink.elf: main.o startup.o owen485.o stubs.o mdb232.o xprintf.o RTX_Conf_CM.o system.o ethfunc.o network.o crc.o eeprom.o param.o modbus_udp.o fsm.o
+blink.elf: main.o startup.o mdb485.o stubs.o mdb232.o xprintf.o RTX_Conf_CM.o system.o ethfunc.o network.o crc.o eeprom.o param.o modbus_udp.o fsm.o
 	$(LD) $(LFLAGS) -Map blink.map -o $@ $^ $(LIBS)
 
 blink.bin: blink.elf
@@ -83,7 +86,7 @@ clean:
 	rm -rf *.o *.elf *.bin
 
 load: blink.elf
-	../mdr1986x-JFlash-master/loadjlink $(IMAGE)
+	/home/smolvik/mdr1986x-JFlash-master/loadjlink $(IMAGE)
 
 debug:
 	arm-none-eabi-gdb

@@ -51,7 +51,7 @@ void fsm_idle(uint32_t arg)
 			
 			uint32_t tor = (20*testParam.max_out_torque*testParam.out_torque_tab[0] + (1<<10))>>11;
 			dut_set_torque(tor);
-			fsmdbg = tor;			
+			fsmdbg = tor;
 		}
 	}
 }
@@ -95,8 +95,6 @@ void fsm_wait(uint32_t arg)
 		return;
 	}
 }
-
-
 
 void fsm_work(uint32_t arg)
 {

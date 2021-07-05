@@ -6,7 +6,8 @@
 #include "network.h"
 #include "fsmdef.h"
 #include "modbusdef.h"
-#include "owen485.h"
+#include "mdb232.h"
+#include "mdb485.h"
 
 #include <cmsis_os.h>
 
@@ -27,9 +28,11 @@ osMessageQId fsmCmdMsgQid;
 uint32_t os_messageQ_q_message[4+QUEUE_SZ] = { 0 };
 const osMessageQDef_t message_def = { QUEUE_SZ, os_messageQ_q_message };
 
-extern void owen485_init(void);
-extern void owen_si8_request(uint16_t hash);
-extern int owen485_get(uint32_t *data);
+extern void mdb485_init(void);
+extern void mdb485_writeregs(uint8_t id, uint16_t ad ,uint16_t qn, uint16_t *regs);
+extern void mdb485_read_inputregs(uint8_t id, uint16_t ad , uint16_t qn);
+extern uint32_t mdb485_get_crc();
+extern uint32_t mdb485_get_func();
 
 extern void mdb232_init(void);
 extern int mdb_fifo_write(uint8_t *buf, int n);
@@ -40,16 +43,46 @@ extern uint32_t fsm_get_cyccnt();
 osMutexId mutexMdbRegId;
 osMutexDef (MutexMdbReg);
 
+uint32_t ddsfreq = 0;	// rpm
+
+void dut_start()
+{
+	MDR_TIMER2->CNTRL |= TIMER_CNTRL_CNT_EN;
+	//MDR_PORTB->SETTX = 1<<11;
+	MDR_PORTB->CLRTX = 1<<11;
+}
+
+void dut_stop()
+{
+	MDR_TIMER2->CNTRL &= ~TIMER_CNTRL_CNT_EN;
+	//MDR_PORTB->CLRTX = 1<<11;
+	MDR_PORTB->SETTX = 1<<11;
+}
+
+void dut_set_speed(int32_t spd)
+{
+	ddsfreq = spd>>8;
+}
+
+void dut_set_torque(uint32_t t)
+{
+	// set torque
+}
+
 int main()
 {
 	SystemInit();
-	owen485_init();
+	mdb485_init();
 	mdb232_init();
 	
 	RemoteMacInit();
 	//par_read();	
 	EthernetConfig();
 	//network_config();
+	
+	dut_stop();
+	//dut_start();
+	//dut_set_speed(2000<<8);
 	
 	mutexMdbRegId = osMutexCreate(osMutex (MutexMdbReg));
 	
@@ -76,7 +109,6 @@ void TIMER1_Handler(void)
 	osSignalSet(thrDUTProcceedId, SIG_DUT_UPDATE);
 }
 
-uint32_t ddsfreq = 0;	// rpm
 
 void TIMER2_Handler(void)
 {
@@ -92,26 +124,12 @@ void TIMER2_Handler(void)
 	else MDR_PORTB->CLRTX = 1<<12;
 }
 
-void dut_start()
+void EXT_INT1_Handler(void)
 {
-	MDR_TIMER2->CNTRL |= TIMER_CNTRL_CNT_EN;
-	MDR_PORTB->SETTX = 1<<11;
-}
-
-void dut_stop()
-{
-	MDR_TIMER2->CNTRL &= ~TIMER_CNTRL_CNT_EN;
-	MDR_PORTB->CLRTX = 1<<11;
-}
-
-void dut_set_speed(int32_t spd)
-{
-	ddsfreq = spd>>8;
-}
-
-void dut_set_torque(uint32_t t)
-{
-	// set torque
+	static volatile int dbg = 0;
+	NVIC_ClearPendingIRQ(EXT_INT1_IRQn);
+	NVIC_DisableIRQ(EXT_INT1_IRQn);
+	dbg ++;
 }
 
 extern uint32_t fsmdbg;
@@ -120,8 +138,6 @@ void threadDUTProceed(void *arg)
 {
 	struct STR_TEST_DATA tlm;
 	osEvent evt;
-	uint32_t owdata;
-	int owkind;	
 	uint32_t finm = 0;
 
 	tlm.in_cnt_rot = 0;
@@ -148,35 +164,30 @@ void threadDUTProceed(void *arg)
 					}
 					
 					finm = (1<<0);
-					mdb232_read_inputregs(1, 0, 4);
-					owen_si8_request(OWENSI8CNTHASH);
+					mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
+					mdb485_read_inputregs(MDB485SI30ID, 0, 2);
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);
 					tlm.in_torque = mdb232_bikm_get_torque();
 
 					break;
-				case SIG_DUT_OWEN485_RDYDATA:
-					owkind=owen485_get(&owdata);
-					if(owkind==1) {
-						// counter
-						finm |= (1<<2);
-						tlm.in_cnt_rot = owdata;
-						owen_si8_request(OWENSI8TIMHASH);
-						
-						uint32_t cmd = (owdata<<8) | (uint32_t)CMD_UPDATE;
-						osMessagePut(fsmCmdMsgQid, cmd, 0);
-
-					} else if(owkind==2) {
-						// speed
-						finm |= (1<<3);
-						tlm.in_speed = owdata*15360;	// rpm*256
-					} else if(owkind==3) {
-						// timer
-						tlm.time_stamp = owdata;
-					} else {
-						// error
-						owkind = 0;
+				case SIG_DUT_MDB485_RDYDATA:
+					// counter is read
+					finm |= (1<<2);
+					if(0 == mdb485_get_crc()) {
+						uint32_t func = mdb485_get_func();
+						if(0x04 == func) {
+							// we get counter value
+							uint32_t cnt = mdb485_si30_get_counter();
+							tlm.in_cnt_rot = cnt;
+							uint32_t cmd = (cnt<<8) | (uint32_t)CMD_UPDATE;
+							osMessagePut(fsmCmdMsgQid, cmd, 0);
+						}
+						else if(0x10 == func) {
+							// we get setpoint confirmation
+							//osMessagePut(fsmCmdMsgQid, cmd, CMD_UPDATE);
+						}
 					}
 					break;
 			}

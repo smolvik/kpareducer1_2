@@ -35,12 +35,17 @@ void PortConfig()
 
 	// port C
 	// PC3 - UART1_TXD
-	// PC4 - UART1_RXD
+	// PC4 - UART1_RXD	
 	MDR_PORTC->FUNC &= ~( (0x03 << (3<<1)) | (0x03 << (4<<1)) );
 	MDR_PORTC->FUNC |= (0x01 << (3<<1)) | (0x01 << (4<<1)); 	// основная функция PC.3 и PC.4
 	MDR_PORTC->ANALOG |= (1 << 3) | (1 << 4);					// PC.3 PC.4 - цифровой режим
 	MDR_PORTC->PWR |= (0x03 << (3<<1)) | (0x03 << (4<<1));		// max speed PC.3 PC.4
-	MDR_PORTC->RXTX &= ~((1 << 3) | (1 << 4));	     			// очищаем выход	
+	MDR_PORTC->RXTX &= ~((1 << 3) | (1 << 4));	     			// очищаем выход
+	// PC5 - EXTINT1
+	MDR_PORTC->ANALOG |= (1 << 5);								// PC.5 - цифровой вход
+	MDR_PORTC->FUNC |= (1 << (5<<1));							// PC.5 - осн функ
+	NVIC_ClearPendingIRQ(EXT_INT1_IRQn);
+	//NVIC_EnableIRQ(EXT_INT1_IRQn); 								
 }
 
 void ClkConfig(void)
@@ -120,6 +125,8 @@ void SystemInit(void)
 	ClkConfig();
 	PortConfig();
 	TimerConfig();
+	
+	
 	
 	NVIC_SetPriority(ETHERNET_IRQn, 0);
 	NVIC_SetPriority(TIMER1_IRQn, 1);

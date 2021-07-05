@@ -1,8 +1,12 @@
 #include "MDR1986VE1T.h"
+#include "mdb485.h"
+#include <cmsis_os.h>
+#include "signals.h"
 
 #define MDB485RXBUFSZ 16
 #define MDB485TXBUFSZ 16
 
+extern osThreadId thrDUTProcceedId;
 extern unsigned short crc16(unsigned char *buf, int len);
 
 static uint8_t rx_buffer[MDB485RXBUFSZ];
@@ -48,6 +52,38 @@ void mdb485_putch(char ch)
 	MDR_UART2->DR = ch;
 }
 
+void mdb485_writeregs(uint8_t id, uint16_t ad ,uint16_t qn, uint16_t *regs)
+{
+	int i;
+	uint8_t *pb = tx_buffer;
+	int nbr = qn<<1;
+	
+	// make adu header
+	*pb++ = id;
+	
+	// make pdu body
+	*pb++ = 0x10;			// func - 0x10
+	*pb++ = 0xff&(ad>>8);	// addr
+	*pb++ = 0xff&ad;
+	*pb++ = 0xff&(qn>>8);	// quant
+	*pb++ = 0xff&qn;
+	*pb++ = nbr;			// num bytes
+	
+	if( (7+nbr) > MDB485TXBUFSZ ) return;
+	for(i=0; i < qn; i++){
+		uint16_t reg = *regs++;
+		*pb++ = 0xff&(reg>>8);
+		*pb++ = 0xff&reg;
+	}
+	
+	// make adu tail - calculate crc
+	uint16_t crc = crc16(tx_buffer, 7+nbr);
+	*pb++ = crc&0xff;		
+	*pb++ = (crc >> 8)&0xff;
+	
+	mdb485_send(tx_buffer, 7+nbr+2);
+}
+
 void mdb485_readregs(uint8_t id, uint16_t ad , uint16_t qn)
 {
 	uint8_t *pb = tx_buffer;
@@ -68,6 +104,64 @@ void mdb485_readregs(uint8_t id, uint16_t ad , uint16_t qn)
 	mdb485_send(tx_buffer, 8);
 }
 
+void mdb485_read_inputregs(uint8_t id, uint16_t ad , uint16_t qn)
+{
+	uint8_t *pb = tx_buffer;
+	
+	// make adu header
+	*pb++ = id;
+	// make pdu body
+	*pb++ = 0x04;			// func - 4
+	*pb++ = 0xff&(ad>>8);	// addr
+	*pb++ = 0xff&ad;
+	*pb++ = 0xff&(qn>>8);	// quant
+	*pb++ = 0xff&qn;
+	// make adu tail - calculate crc
+	uint16_t crc = crc16(tx_buffer, 6);
+	*pb++ = crc&0xff;		
+	*pb++ = (crc >> 8)&0xff;
+	
+	mdb485_send(tx_buffer, 8);
+}
+
+uint32_t mdb485_get_func()
+{
+	NVIC_DisableIRQ(UART2_IRQn);
+	uint32_t func = rx_buffer[1];
+	NVIC_EnableIRQ(UART2_IRQn);
+	
+	return func;
+}
+
+uint32_t mdb485_get_crc()
+{
+	uint16_t crc;
+	
+	NVIC_DisableIRQ(UART2_IRQn);
+	crc = crc16(rx_buffer, mdb485_rxsize);
+	NVIC_EnableIRQ(UART2_IRQn);
+	
+	return crc;
+}
+
+uint32_t mdb485_si30_get_counter()
+{
+	uint8_t *p = rx_buffer+3;
+	
+	NVIC_DisableIRQ(UART2_IRQn);
+	if(mdb485_rxsize) {
+		uint32_t cnt = (*p++)<<24;
+		cnt |= (*p++)<<16;
+		cnt |= (*p++)<<8;
+		cnt |= (*p)<<0;
+		NVIC_EnableIRQ(UART2_IRQn);
+		
+		return cnt;
+	}
+	NVIC_EnableIRQ(UART2_IRQn);
+	return 0;
+}
+
 void UART2_Handler(void)
 {
 	int i;
@@ -79,6 +173,6 @@ void UART2_Handler(void)
 			*pb++ = MDR_UART2->DR; // empting the fifo
 		}
 	}
-
 	mdb485_rxsize = i;
+	osSignalSet(thrDUTProcceedId, SIG_DUT_MDB485_RDYDATA);
 }
