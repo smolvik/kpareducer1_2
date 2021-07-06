@@ -44,19 +44,16 @@ osMutexId mutexMdbRegId;
 osMutexDef (MutexMdbReg);
 
 uint32_t ddsfreq = 0;	// rpm
+uint32_t torqCurr = 0;
 
-void dut_start()
+void dut_reset_off()
 {
-	MDR_TIMER2->CNTRL |= TIMER_CNTRL_CNT_EN;
-	//MDR_PORTB->SETTX = 1<<11;
 	MDR_PORTB->CLRTX = 1<<11;
 }
 
-void dut_stop()
+void dut_reset_on()
 {
-	MDR_TIMER2->CNTRL &= ~TIMER_CNTRL_CNT_EN;
-	//MDR_PORTB->CLRTX = 1<<11;
-	MDR_PORTB->SETTX = 1<<11;
+	MDR_PORTB->SETTX = 1<<11; 	// this front reset counter
 }
 
 void dut_set_speed(int32_t spd)
@@ -67,6 +64,7 @@ void dut_set_speed(int32_t spd)
 void dut_set_torque(uint32_t t)
 {
 	// set torque
+	torqCurr = t;
 }
 
 int main()
@@ -80,7 +78,7 @@ int main()
 	EthernetConfig();
 	//network_config();
 	
-	dut_stop();
+	dut_reset_off();
 	//dut_start();
 	//dut_set_speed(2000<<8);
 	
@@ -156,7 +154,7 @@ void threadDUTProceed(void *arg)
 			switch(evt.value.signals) {
 				case SIG_DUT_UPDATE:
 					if(finm>1) {
-						tlm.in_torque = fsmdbg;
+						tlm.in_torque = torqCurr;
 						tlm.cyc_cnt = fsm_get_cyccnt();
 						mdb_fifo_write((uint8_t*)&tlm, sizeof tlm);
 						tlm.time_stamp = 0;
@@ -186,7 +184,7 @@ void threadDUTProceed(void *arg)
 						}
 						else if(0x10 == func) {
 							// we get setpoint confirmation
-							//osMessagePut(fsmCmdMsgQid, cmd, CMD_UPDATE);
+							
 						}
 					}
 					break;
