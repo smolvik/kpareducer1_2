@@ -45,7 +45,7 @@ osMutexId mutexMdbRegId;
 osMutexDef (MutexMdbReg);
 
 uint32_t ddsfreq = 0;	// rpm
-uint32_t torqCurr = 0;
+int32_t torqCurr = 0;
 
 void dut_reset_off()
 {
@@ -62,7 +62,7 @@ void dut_set_speed(int32_t spd)
 	ddsfreq = spd>>8;
 }
 
-void dut_set_torque(uint32_t t)
+void dut_set_torque(int32_t t)
 {
 	// set torque
 	torqCurr = t;

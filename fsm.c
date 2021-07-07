@@ -7,7 +7,7 @@
 extern void dut_set_speed(uint32_t);
 extern void dut_reset_off();
 extern void dut_reset_on();
-extern void dut_set_torque(uint32_t t);
+extern void dut_set_torque(int32_t t);
 
 //extern float dut_get_speed();
 //extern float dut_get_torque();
@@ -30,6 +30,7 @@ static int ktor_tab[CYCSZ];
 
 static uint32_t cycCnt = 0;
 static uint32_t cycIdx = 0;
+static uint32_t cycSign = 0;
 static struct STR_TEST_PARAM testParam;
 
 static void fsm_idle(uint32_t arg);
@@ -65,6 +66,7 @@ void fsm_idle(uint32_t arg)
 			fsmproc = fsm_work;
 			fsmmode = ST_WORK;
 			cycIdx = 0;
+			cycSign = 0;
 			
 			for(i=0; i < CYCSZ; i++) {
 				rot_tab[i] = (41*testParam.max_in_rot*testParam.in_rot_tab[i] + (1<<11))>>12;
@@ -110,29 +112,37 @@ void fsm_work(uint32_t arg)
 			} else {
 				// end of the cycle
 				cycIdx = 0;
-				cycCnt--;
 				dut_reset_on();
 				
-				if(cycCnt == 0) {
-					// end of the test
-					fsmproc = fsm_clean;
-					fsmmode = ST_CLEAN;
-					dut_set_speed(0);
-					dut_set_torque(0);
-				} else {			
-					rot1 = rot_tab[0];
-					rot2 = rot_tab[1];
-					torq1 = tor_tab[0];
-					torq2 = tor_tab[1];
-					ktorq = ktor_tab[0];
+				if(cycSign++) {
+					cycSign = 0;
+					cycCnt--;
+				
+					if(cycCnt == 0) {
+						// end of the test
+						fsmproc = fsm_clean;
+						fsmmode = ST_CLEAN;
+						dut_set_speed(0);
+						dut_set_torque(0);
+						return;
+					}
 				}
+				
+				rot1 = rot_tab[0];
+				rot2 = rot_tab[1];
+				torq1 = tor_tab[0];
+				torq2 = tor_tab[1];
+				ktorq = ktor_tab[0];
 				
 				return;
 			}
 		}
 
 		int tqc = (torq1<<2) + ktorq*(rot-rot1);
-		dut_set_torque( tqc>>2 );
+		if(cycSign)
+			dut_set_torque( -(tqc>>2) );
+		else
+			dut_set_torque( tqc>>2 );
 	}
 
 	if(cmd == CMD_STOP) {
@@ -217,7 +227,6 @@ void fsm_complete(uint32_t arg)
 	}
 }
 
-
 void fsm_wait(uint32_t arg)
 {
 	int i;
@@ -247,5 +256,5 @@ void fsm_wait(uint32_t arg)
 		dut_reset_on();
 		cycCnt = 0;
 		cycIdx = 0;
-	}	
+	}
 }

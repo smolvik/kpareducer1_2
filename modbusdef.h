@@ -38,10 +38,10 @@ struct STR_DEVICE_FW_PARAM {
  */
 struct STR_TEST_DATA {
 	uint32_t in_cnt_rot;			// счетчик оборотов вх вала
-	uint32_t in_torque;				// момент на вх валу
+	int32_t in_torque;				// момент на вх валу
 	uint32_t in_speed;				// частота вращения вх вала
 	uint32_t out_cnt_rot;			// счетчик оборотов вых вала
-	uint32_t out_torque;			// момент на вых валу
+	int32_t out_torque;			// момент на вых валу
 	uint32_t out_speed;				// частота вращения вых вала
 	uint32_t cyc_cnt;				// счетчик проведенных циклов
 	uint32_t time_stamp;			// метка времени мс с начала испытания
