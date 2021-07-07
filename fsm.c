@@ -4,7 +4,7 @@
 
 #define CYCSZ 5
 
-extern void dut_set_speed(uint32_t);
+extern void dut_set_speed(int32_t);
 extern void dut_reset_off();
 extern void dut_reset_on();
 extern void dut_set_torque(int32_t t);
@@ -128,6 +128,11 @@ void fsm_work(uint32_t arg)
 					}
 				}
 				
+				if(cycSign)
+					dut_set_speed(-testParam.in_speed);
+				else
+					dut_set_speed(testParam.in_speed);
+				
 				rot1 = rot_tab[0];
 				rot2 = rot_tab[1];
 				torq1 = tor_tab[0];
@@ -189,30 +194,50 @@ void fsm_complete(uint32_t arg)
 				torq2 = tor_tab[cycIdx+1];
 				ktorq = ktor_tab[cycIdx];
 			} else {
-				// end of the cycle
+				// end of the half cycle
 				cycIdx = 0;
-				cycCnt--;
+				dut_reset_on();
 				
-				if(cycCnt == 0) {
-					// end of the test
-					fsmproc = fsm_clean;
-					fsmmode = ST_CLEAN;
+				if(cycSign++) {
+					// end of the whole cycle
+					cycSign = 0;
+					cycCnt--;
+					
 					dut_set_speed(0);
 					dut_set_torque(0);
-					dut_reset_on();
-				} else {
-					dut_set_speed(0);
-					dut_set_torque(0);
-					fsmproc = fsm_wait;
-					fsmmode = ST_WAIT;
+					
+					if(cycCnt == 0) {
+						// end of the test
+						fsmproc = fsm_clean;
+						fsmmode = ST_CLEAN;
+					} else {
+						fsmproc = fsm_wait;
+						fsmmode = ST_WAIT;
+					}
+					
+					return;
 				}
+
+				if(cycSign)
+					dut_set_speed(-testParam.in_speed);
+				else
+					dut_set_speed(testParam.in_speed);
+				
+				rot1 = rot_tab[0];
+				rot2 = rot_tab[1];
+				torq1 = tor_tab[0];
+				torq2 = tor_tab[1];
+				ktorq = ktor_tab[0];
 
 				return;
 			}
 		}
 
 		int tqc = (torq1<<2) + ktorq*(rot-rot1);
-		dut_set_torque( tqc>>2 );
+		if(cycSign)
+			dut_set_torque( -(tqc>>2) );
+		else
+			dut_set_torque( tqc>>2 );
 	}
 
 	if(cmd == CMD_STOP) {
@@ -237,6 +262,7 @@ void fsm_wait(uint32_t arg)
 		fsmproc = fsm_work;
 		fsmmode = ST_WORK;
 		cycIdx = 0;
+		cycSign = 0;
 					
 		rot1 = rot_tab[0];
 		rot2 = rot_tab[1];
@@ -256,5 +282,6 @@ void fsm_wait(uint32_t arg)
 		dut_reset_on();
 		cycCnt = 0;
 		cycIdx = 0;
+		cycSign = 0;
 	}
 }

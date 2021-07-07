@@ -14,15 +14,16 @@ void PortConfig()
 	// PB5-PB8 - control servo2
 	// PB11 - si8 reset
 	// PB12 - si8 block
+	// PB0 - servo power on/off
 	MDR_PORTB->ANALOG |= (0x3<<14) + (0x1<<9) + (0x1<<10) + (0x1<<11) + (0x1<<12);
 	MDR_PORTB->RXTX &= ~((0x3<<14) + (0x1<<9) + (0x1<<10) + (0x1<<11) + (0x1<<12));
 	MDR_PORTB->OE |= (0x3<<14) + (0x1<<9) + (0x1<<10)  + (0x1<<11) + (0x1<<12);
 	MDR_PORTB->PWR |= (0xF<<28) + (0x3<<18) + (0x3<<20)  + (0x3<<22) + (0x3<<24);
 
-	MDR_PORTB->ANALOG |= (1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8);
-	MDR_PORTB->RXTX &= ~((1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8));
-	MDR_PORTB->OE |= (1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8);
-	MDR_PORTB->PWR |= (0xffff<<2);
+	MDR_PORTB->ANALOG |= (1<<0)+(1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8);
+	MDR_PORTB->RXTX &= ~((1<<0)+(1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8));
+	MDR_PORTB->OE |= (1<<0)+(1<<1)+(1<<2)+(1<<3)+(1<<4)+(1<<5)+(1<<6)+(1<<7)+(1<<8);
+	MDR_PORTB->PWR |= (0xffff<<2) | 0x03;
 
 	// port D
 	// UART2 PD.13 PD.14 RS485
@@ -111,9 +112,9 @@ void TimerConfig(void)
 	
 	MDR_TIMER2->CNT = 0;
 	//MDR_TIMER2->PSG = 25 - 1;  		// prescaller
-	//MDR_TIMER2->ARR = 3750 - 1;		// TIM2 period is 1024Hz
+	//MDR_TIMER2->ARR = 3750 - 1;		// TIM2  is 1024Hz
 	MDR_TIMER2->PSG = 96 - 1;  		// prescaller
-	MDR_TIMER2->ARR = 953 - 1;		// TIM2 period is 1024Hz
+	MDR_TIMER2->ARR = 953 - 1;		// TIM2 is 1049Hz
 	
 	MDR_TIMER2->IE |= TIMER_IE_CNT_ARR_EVENT_IE;					// enable int for CNT=ARR event
 	MDR_TIMER2->CNTRL |= TIMER_CNTRL_CNT_EN; 						// start count

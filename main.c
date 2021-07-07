@@ -44,7 +44,7 @@ extern enum ENM_FSM_STATE fsm_get_mode();
 osMutexId mutexMdbRegId;
 osMutexDef (MutexMdbReg);
 
-uint32_t ddsfreq = 0;	// rpm
+int32_t ddsfreq = 0;	// rpm
 int32_t torqCurr = 0;
 
 void dut_reset_off()
@@ -111,16 +111,21 @@ void TIMER1_Handler(void)
 
 void TIMER2_Handler(void)
 {
-	static uint32_t phase = 0;
+	static uint32_t phase1 = 0;
+	static uint32_t phase2 = 65536/4;
 	
 	MDR_TIMER2->STATUS = 0;
 	
-	phase = 65535&(phase+ddsfreq);
+	phase1 = 65535&(phase1+ddsfreq);
+	phase2 = 65535&(phase2+ddsfreq);
 	
 	//MDR_PORTB->SETTX = 1<<11;
 	
-	if(phase>30000) MDR_PORTB->SETTX = 1<<12;
+	if(phase1>30000) MDR_PORTB->SETTX = 1<<12;
 	else MDR_PORTB->CLRTX = 1<<12;
+	
+	if(phase2>30000) MDR_PORTB->SETTX = 1<<0;
+	else MDR_PORTB->CLRTX = 1<<0;
 }
 
 void EXT_INT1_Handler(void)
@@ -155,6 +160,7 @@ void threadDUTProceed(void *arg)
 			switch(evt.value.signals) {
 				case SIG_DUT_UPDATE:
 					if(finm>1) {
+						tlm.in_speed = ddsfreq<<8;
 						tlm.in_torque = torqCurr;
 						tlm.cyc_cnt = fsm_get_cyccnt();
 						tlm.time_stamp = (uint32_t)fsm_get_mode();
@@ -164,7 +170,8 @@ void threadDUTProceed(void *arg)
 					
 					finm = (1<<0);
 					mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
-					mdb485_read_inputregs(MDB485SI30ID, 0, 2);
+					//mdb485_read_inputregs(MDB485SI30ID, 0, 2);
+					mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2); 
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);
@@ -178,9 +185,9 @@ void threadDUTProceed(void *arg)
 						uint32_t func = mdb485_get_func();
 						if(0x04 == func) {
 							// we get counter value
-							uint32_t cnt = mdb485_si30_get_counter();
+							int cnt = (int)mdb485_si30_get_counter();
 							tlm.in_cnt_rot = cnt;
-							uint32_t cmd = (cnt<<8) | (uint32_t)CMD_UPDATE;
+							uint32_t cmd = (abs(cnt)<<8) | (uint32_t)CMD_UPDATE;
 							osMessagePut(fsmCmdMsgQid, cmd, 0);
 						}
 						else if(0x10 == func) {

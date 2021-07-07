@@ -37,12 +37,12 @@ struct STR_DEVICE_FW_PARAM {
  * Структура текущих данных испытания
  */
 struct STR_TEST_DATA {
-	uint32_t in_cnt_rot;			// счетчик оборотов вх вала
+	int32_t in_cnt_rot;			// счетчик оборотов вх вала
 	int32_t in_torque;				// момент на вх валу
-	uint32_t in_speed;				// частота вращения вх вала
-	uint32_t out_cnt_rot;			// счетчик оборотов вых вала
+	int32_t in_speed;				// частота вращения вх вала
+	int32_t out_cnt_rot;			// счетчик оборотов вых вала
 	int32_t out_torque;			// момент на вых валу
-	uint32_t out_speed;				// частота вращения вых вала
+	int32_t out_speed;				// частота вращения вых вала
 	uint32_t cyc_cnt;				// счетчик проведенных циклов
 	uint32_t time_stamp;			// метка времени мс с начала испытания
 } __attribute__((packed));
