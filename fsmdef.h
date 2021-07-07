@@ -9,4 +9,12 @@ enum ENM_CMD {
 	CMD_UPDATE=4
 };
 
+enum ENM_FSM_STATE {
+	ST_IDLE=0,
+	ST_WORK,
+	ST_COMPLETE,
+	ST_WAIT,
+	ST_CLEAN
+};
+
 #endif

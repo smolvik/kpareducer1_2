@@ -33,14 +33,20 @@ static uint32_t cycIdx = 0;
 static struct STR_TEST_PARAM testParam;
 
 static void fsm_idle(uint32_t arg);
-static void fsm_starting(uint32_t arg);
 static void fsm_work(uint32_t arg);
+static void fsm_complete(uint32_t arg);
 static void fsm_wait(uint32_t arg);
+static void fsm_clean(uint32_t arg);
 
 void (*fsmproc)(uint32_t) = fsm_idle;
 
-
 uint32_t fsmdbg = 0;
+static enum ENM_FSM_STATE fsmmode = ST_IDLE;
+
+enum ENM_FSM_STATE fsm_get_mode()
+{
+	return fsmmode;
+}
 
 uint32_t fsm_get_cyccnt()
 {
@@ -57,10 +63,8 @@ void fsm_idle(uint32_t arg)
 		
 		if(cycCnt = testParam.num_cyc) {
 			fsmproc = fsm_work;
+			fsmmode = ST_WORK;
 			cycIdx = 0;
-		
-			uint32_t tor = (41*testParam.max_out_torque*testParam.out_torque_tab[0] + (1<<11))>>12;
-			dut_set_torque(tor);
 			
 			for(i=0; i < CYCSZ; i++) {
 				rot_tab[i] = (41*testParam.max_in_rot*testParam.in_rot_tab[i] + (1<<11))>>12;
@@ -79,6 +83,7 @@ void fsm_idle(uint32_t arg)
 			
 			dut_reset_on();
 			dut_set_speed(testParam.in_speed);			
+			dut_set_torque(torq1);
 		}
 	}
 }
@@ -108,55 +113,139 @@ void fsm_work(uint32_t arg)
 				cycCnt--;
 				dut_reset_on();
 				
-				rot1 = rot_tab[0];
-				rot2 = rot_tab[1];
-				torq1 = tor_tab[0];
-				torq2 = tor_tab[1];
-				ktorq = ktor_tab[0];
+				if(cycCnt == 0) {
+					// end of the test
+					fsmproc = fsm_clean;
+					fsmmode = ST_CLEAN;
+					dut_set_speed(0);
+					dut_set_torque(0);
+				} else {			
+					rot1 = rot_tab[0];
+					rot2 = rot_tab[1];
+					torq1 = tor_tab[0];
+					torq2 = tor_tab[1];
+					ktorq = ktor_tab[0];
+				}
 				
 				return;
 			}
 		}
 
-		if(cycCnt == 0) {
-			// end of the test
-			fsmproc = fsm_idle;
-			dut_set_speed(0);
-			dut_set_torque(0);
-			dut_reset_off();
-			return;
-		}
-
 		int tqc = (torq1<<2) + ktorq*(rot-rot1);
 		dut_set_torque( tqc>>2 );
-		/*
-		if(tqc < 0) {
-			int dbg = 0;
-		}
-		*/
 	}
 
 	if(cmd == CMD_STOP) {
-		fsmproc = fsm_idle;
+		fsmproc = fsm_clean;
+		fsmmode = ST_CLEAN;
 		dut_set_speed(0);
 		dut_set_torque(0);
-		dut_reset_off();
+		dut_reset_on();
 		cycCnt = 0;
 		cycIdx = 0;
 	}else if(cmd == CMD_PAUSE) {
-		//fsmproc = fsm_wait;
+		fsmproc = fsm_complete;
+		fsmmode = ST_COMPLETE;
 	}
 }
 
-void fsm_wait(uint32_t arg)
+void fsm_clean(uint32_t arg)
+{
+	enum ENM_CMD cmd = arg&0xff;
+	if(cmd == CMD_UPDATE) {
+		fsmproc = fsm_idle;
+		fsmmode = ST_IDLE;
+		dut_reset_off();
+	}
+}
+
+void fsm_complete(uint32_t arg)
 {
 	enum ENM_CMD cmd = arg&0xff;
 	uint32_t prm = 0x00ffffff & (arg>>8);
 
 	if(cmd == CMD_UPDATE) {
-
 		uint32_t rot = prm;
 		uint32_t ref = 0;
+		
+		dut_reset_off();
+		
+		if(rot >= rot2) {
+			// get next interval
+			if( (++cycIdx) < CYCSZ-1) {
+				rot1 = rot_tab[cycIdx];
+				rot2 = rot_tab[cycIdx+1];
+				torq1 = tor_tab[cycIdx];
+				torq2 = tor_tab[cycIdx+1];
+				ktorq = ktor_tab[cycIdx];
+			} else {
+				// end of the cycle
+				cycIdx = 0;
+				cycCnt--;
+				
+				if(cycCnt == 0) {
+					// end of the test
+					fsmproc = fsm_clean;
+					fsmmode = ST_CLEAN;
+					dut_set_speed(0);
+					dut_set_torque(0);
+					dut_reset_on();
+				} else {
+					dut_set_speed(0);
+					dut_set_torque(0);
+					fsmproc = fsm_wait;
+					fsmmode = ST_WAIT;
+				}
+
+				return;
+			}
+		}
+
+		int tqc = (torq1<<2) + ktorq*(rot-rot1);
+		dut_set_torque( tqc>>2 );
 	}
 
+	if(cmd == CMD_STOP) {
+		fsmproc = fsm_clean;
+		fsmmode = ST_CLEAN;
+		
+		dut_set_speed(0);
+		dut_set_torque(0);
+		dut_reset_on();
+		cycCnt = 0;
+		cycIdx = 0;
+	}
+}
+
+
+void fsm_wait(uint32_t arg)
+{
+	int i;
+	enum ENM_CMD cmd = arg&0xff;
+	
+	if(cmd == CMD_START) {
+		
+		fsmproc = fsm_work;
+		fsmmode = ST_WORK;
+		cycIdx = 0;
+					
+		rot1 = rot_tab[0];
+		rot2 = rot_tab[1];
+		torq1 = tor_tab[0];
+		torq2 = tor_tab[1];
+		ktorq = ktor_tab[0];
+
+		dut_set_speed(testParam.in_speed);
+		dut_set_torque(torq1);
+		dut_reset_on();
+	}
+	
+	if(cmd == CMD_STOP) {
+		fsmproc = fsm_clean;
+		fsmmode = ST_CLEAN;
+
+		dut_reset_on();
+		cycCnt = 0;
+		cycIdx = 0;
+	}	
 }

@@ -39,6 +39,7 @@ extern int mdb_fifo_write(uint8_t *buf, int n);
 extern int32_t mdb232_bikm_get_torque();
 
 extern uint32_t fsm_get_cyccnt();
+extern enum ENM_FSM_STATE fsm_get_mode();
 
 osMutexId mutexMdbRegId;
 osMutexDef (MutexMdbReg);
@@ -156,8 +157,8 @@ void threadDUTProceed(void *arg)
 					if(finm>1) {
 						tlm.in_torque = torqCurr;
 						tlm.cyc_cnt = fsm_get_cyccnt();
+						tlm.time_stamp = (uint32_t)fsm_get_mode();
 						mdb_fifo_write((uint8_t*)&tlm, sizeof tlm);
-						tlm.time_stamp = 0;
 						finm = 0;
 					}
 					
