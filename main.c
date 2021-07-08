@@ -187,7 +187,7 @@ void threadDUTProceed(void *arg)
 							// we get counter value
 							int cnt = (int)mdb485_si30_get_counter();
 							tlm.in_cnt_rot = cnt;
-							uint32_t cmd = (abs(cnt)<<8) | (uint32_t)CMD_UPDATE;
+							uint32_t cmd = (cnt<<8) | (uint32_t)CMD_UPDATE;
 							osMessagePut(fsmCmdMsgQid, cmd, 0);
 						}
 						else if(0x10 == func) {
