@@ -47,6 +47,12 @@ void PortConfig()
 	MDR_PORTC->FUNC |= (1 << (5<<1));							// PC.5 - осн функ
 	NVIC_ClearPendingIRQ(EXT_INT1_IRQn);
 	//NVIC_EnableIRQ(EXT_INT1_IRQn); 								
+	
+	// portE
+	// PE1 - DAC0 servo1 speed control
+	// PE2 - DAC1 servo2 torque control
+	MDR_PORTE->ANALOG &= ~((1 << 1)+(1 << 2));
+	
 }
 
 void ClkConfig(void)
@@ -87,7 +93,7 @@ void ClkConfig(void)
 	MDR_RST_CLK->TIM_CLOCK &= ~RST_CLK_TIM_CLOCK_TIM2_BRG_Msk;
 
 	MDR_RST_CLK->PER_CLOCK|=(1<<14) | (1<<15) | 
-			(1<<22)|(1<<23)|(1<<24)|(1<<25);	//Enable clock for TIM1, TIM2, PORTB, PORTC, PORTD, PORTE
+			(1<<22)|(1<<23)|(1<<24)|(1<<25)|(1<<18);	//Enable clock for TIM1, TIM2, PORTB, PORTC, PORTD, PORTE, DAC
 
 	// enable clock UART2
 	MDR_RST_CLK->PER_CLOCK |= (1 << 7);								
@@ -121,12 +127,17 @@ void TimerConfig(void)
 	NVIC_EnableIRQ(TIMER2_IRQn); 									// enable in nvic int from timer1	
 }
 
+void dac_init()
+{
+	MDR_DAC->CFG |= (1<<2)+(1<<3); // dac0 dac1 on
+}
+
 void SystemInit(void)
 {
 	ClkConfig();
 	PortConfig();
 	TimerConfig();
-	
+	dac_init();
 	
 	
 	NVIC_SetPriority(ETHERNET_IRQn, 0);

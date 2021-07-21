@@ -83,12 +83,25 @@ void mdb232_readregs(uint8_t id, uint16_t ad , uint16_t qn)
 	mdb232_send(tx_buffer, 8);
 }
 
-int32_t mdb232_bikm_get_torque()
+uint32_t mdb232_get_crc()
+{
+	uint16_t crc;
+	
+	NVIC_DisableIRQ(UART1_IRQn);
+	crc = crc16(rx_buffer, mdb232_rxsize);
+	NVIC_EnableIRQ(UART1_IRQn);
+	
+	return crc;
+}
+
+int32_t mdb232_bikm_get_torque(int32_t *id)
 {
 	uint8_t *p = rx_buffer+3;
+	*id = -1;
 	
 	NVIC_DisableIRQ(UART1_IRQn);
 	if(mdb232_rxsize) {
+		*id = rx_buffer[0];
 		// in rx_buffer float with be order
 		// need int(y*256.f+0.5)
 		uint32_t t = (*p++)<<16;

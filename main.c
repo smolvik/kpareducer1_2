@@ -1,5 +1,6 @@
 #include "MDR1986VE1T.h"
 #include <string.h>
+#include <stdlib.h>
 #include "param.h"
 #include "xprintf.h"
 #include "system.h"
@@ -33,10 +34,13 @@ extern void mdb485_writeregs(uint8_t id, uint16_t ad ,uint16_t qn, uint16_t *reg
 extern void mdb485_read_inputregs(uint8_t id, uint16_t ad , uint16_t qn);
 extern uint32_t mdb485_get_crc();
 extern uint32_t mdb485_get_func();
+extern uint32_t mdb485_si30_get_counter();
 
+extern uint32_t mdb232_get_crc();
+extern void mdb232_read_inputregs(uint8_t id, uint16_t ad , uint16_t qn);
 extern void mdb232_init(void);
 extern int mdb_fifo_write(uint8_t *buf, int n);
-extern int32_t mdb232_bikm_get_torque();
+extern int32_t mdb232_bikm_get_torque(int32_t *id);
 
 extern uint32_t fsm_get_cyccnt();
 extern enum ENM_FSM_STATE fsm_get_mode();
@@ -60,12 +64,30 @@ void dut_reset_on()
 void dut_set_speed(int32_t spd)
 {
 	ddsfreq = spd>>8;
+	
+	//int dac = (5593*spd)>>19;
+	int dac = (5083*spd)>>19;
+	
+	if(spd >= 0) {
+		MDR_PORTB->RXTX |= (0x1<<9);
+	}
+	else MDR_PORTB->RXTX &= ~(0x1<<9);
+	MDR_DAC->DAC1_DATA = abs(dac);		// n*4096/1500
 }
 
 void dut_set_torque(int32_t t)
 {
 	// set torque
 	torqCurr = t;
+	
+	//int dac = (3745*t)>>13;
+	int dac = (6808*t)>>14;
+
+	if(t >= 0) {
+		MDR_PORTB->RXTX |= (0x1<<10);
+	}
+	else MDR_PORTB->RXTX &= ~(0x1<<10);
+	MDR_DAC->DAC2_DATA = abs(dac);			// torque*4096/35
 }
 
 int main()
@@ -175,7 +197,12 @@ void threadDUTProceed(void *arg)
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);
-					tlm.in_torque = mdb232_bikm_get_torque();
+					tlm.out_torque = 0;
+					if(0 == mdb232_get_crc()) {
+						int32_t id;
+						tlm.out_torque = mdb232_bikm_get_torque(&id);
+						id = 0;
+					}
 
 					break;
 				case SIG_DUT_MDB485_RDYDATA:

@@ -527,7 +527,7 @@ int pdu_read_fifo_queue(int ofs)
 		while( (j+sizeof(tdat)) < UDPDATASZ ) {
 			int nr = 0;
 			// read the telemetry queue
-			if( 0 == (nr=mdb_fifo_read(&tdat, sizeof tdat)) ) break;
+			if( 0 == (nr=mdb_fifo_read((uint8_t*)&tdat, sizeof tdat)) ) break;
 			
 			u32tobe(tdat.in_cnt_rot, dst); dst += 4;
 			u32tobe(tdat.in_torque, dst); dst += 4;

@@ -55,7 +55,7 @@ void fsm_idle(uint32_t arg)
 	if(cmd == CMD_START) {
 		mdb_get_testparam(&testParam);
 		
-		if(cycCnt = testParam.num_cyc) {
+		if((cycCnt = testParam.num_cyc)) {
 			fsmproc = fsm_work;
 			fsmmode = ST_WORK;
 			cycIdx = 0;
@@ -236,17 +236,6 @@ void fsm_complete(uint32_t arg)
 				
 				fsmproc = fsm_wait;
 				fsmmode = ST_WAIT;
-				
-				/*
-				rot1 = rot_tab[0];
-				rot2 = rot_tab[1];
-				torq1 = tor_tab[0];
-				torq2 = tor_tab[1];
-				ktorq = ktor_tab[0];
-				
-				dut_set_speed(testParam.in_speed);
-				dut_set_torque(torq1);
-				*/
 			}
 			
 			return;
@@ -298,7 +287,7 @@ void fsm_complete(uint32_t arg)
 
 void fsm_wait(uint32_t arg)
 {
-	int i;
+
 	enum ENM_CMD cmd = arg&0xff;
 	
 	if(cmd == CMD_START) {
@@ -318,7 +307,7 @@ void fsm_wait(uint32_t arg)
 		dut_set_torque(torq1);
 		dut_reset_on();
 	}
-	
+
 	if(cmd == CMD_STOP) {
 		fsmproc = fsm_clean;
 		fsmmode = ST_CLEAN;

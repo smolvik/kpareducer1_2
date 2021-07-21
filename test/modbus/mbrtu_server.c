@@ -13,6 +13,7 @@
 char *comname;
 int boderate = 115200;
 int serverid = 1;
+int kind = 0;
 
 int parse_command(int argc, char** argv)
 {
@@ -36,7 +37,10 @@ int parse_command(int argc, char** argv)
 					
 				case 'm':
 					serverid = atoi(&argv[i][2]);
-					break;						
+					break;
+				case 'k':
+					kind = atoi(&argv[i][2]);
+					break;
 									
 															
 				default:
@@ -70,7 +74,8 @@ int main(int argc, char *argv[])
     int rc;
     
 	parse_command(argc, argv);
-    
+	if(kind != 232 && kind != 485) return 1;
+	    
 	ctx = modbus_new_rtu(comname, boderate, 'N', 8, 1);
     modbus_set_slave(ctx, serverid);    
     modbus_set_debug(ctx, TRUE);       
@@ -95,17 +100,27 @@ int main(int argc, char *argv[])
         modbus_free(ctx);
         return -1;
     }
-
-    float tor = 152.31;
-    uint32_t ti = *((uint32_t*)&tor);
-    uint32_t tibe = u2be(ti);
-    uint16_t *p16 = (uint16_t*)&tibe;
-   
-	memset(mb_mapping->tab_input_registers, 0, N_REGS);
-	mb_mapping->tab_input_registers[0] = *p16++;
-	mb_mapping->tab_input_registers[1] = *p16++;
-	mb_mapping->tab_input_registers[2] = 0x0506;
-	mb_mapping->tab_input_registers[3] = 0x0708;
+    
+    memset(mb_mapping->tab_input_registers, 0, N_REGS);
+    if(kind == 232) {
+		// bikm emulator
+		float tor = 15.30;
+		uint32_t ti = *((uint32_t*)&tor);
+		uint32_t tibe = u2be(ti);
+		uint16_t *p16 = (uint16_t*)&tibe;
+	   
+		mb_mapping->tab_input_registers[0] = *p16++;
+		mb_mapping->tab_input_registers[1] = *p16++;
+		mb_mapping->tab_input_registers[2] = 0x0506;
+		mb_mapping->tab_input_registers[3] = 0x0708;
+	}
+	else if(kind == 485) {
+		// si30 emulation
+		mb_mapping->tab_input_registers[0] = 0;
+		mb_mapping->tab_input_registers[1] = 0;
+		mb_mapping->tab_input_registers[2] = 0;
+		mb_mapping->tab_input_registers[3] = 253;
+	}
 	
 	printf("------------------------\n");
 	printf("%u\n", mb_mapping->nb_input_registers);
@@ -120,12 +135,12 @@ int main(int argc, char *argv[])
         rc = modbus_receive(ctx, query);
         if (rc == -1) {
             // Connection closed by the client or error
-            break;
+            //break;
         }
 
         rc = modbus_reply(ctx, query, rc, mb_mapping);
         if (rc == -1) {
-            break;
+            //break;
         }
         
 		printf("------------------------\n");
