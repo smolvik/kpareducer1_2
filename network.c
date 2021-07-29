@@ -15,9 +15,12 @@ _Rec_Frame Frame;
 
 uint16_t remPort = 0;
 
-void network_config(void)
+void network_config(const struct STR_BSI_PARAM *par)
 {
-	//par_iploc((uint8_t*)MyIPAddress);
+	if(par) {
+		MyIPAddress[0] = par->ip[0];
+		MyIPAddress[1] = par->ip[1];
+	}
 }
 
 //*** Функция формирования ответа на ARP-запрос

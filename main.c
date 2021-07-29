@@ -51,6 +51,16 @@ osMutexDef (MutexMdbReg);
 int32_t ddsfreq = 0;	// rpm
 int32_t torqCurr = 0;
 
+void dut_pwr_on()
+{
+	MDR_PORTB->SETTX = (1<<1)|(1<<5);
+}
+
+void dut_pwr_off()
+{
+	MDR_PORTB->CLRTX = (1<<1)|(1<<5);
+}
+
 void dut_reset_off()
 {
 	MDR_PORTB->CLRTX = 1<<11;
@@ -97,10 +107,32 @@ int main()
 	mdb232_init();
 	
 	RemoteMacInit();
-	//par_read();	
-	EthernetConfig();
-	//network_config();
 	
+	int cntdfl = 10000000;
+	while( 0 == (MDR_PORTA->RXTX & (1<<3)) ) {
+		// but rst dfl is pressed
+		if(cntdfl-- == 0) {
+			// rst dfl event
+			par_save(&defBsiParam);
+			break;
+		}
+	}
+	
+	struct STR_BSI_PARAM rp;
+	par_read(&rp);
+	if( 0 == crc16((uint8_t*)&rp, sizeof(struct STR_BSI_PARAM)) ) {
+		// param is ok
+		EthernetConfig(&rp);
+		network_config(&rp);
+	} else {
+		EthernetConfig(&defBsiParam);
+		network_config(&defBsiParam);
+	}
+	
+	//EthernetConfig(0);
+	//network_config(0);
+	
+	dut_pwr_off();
 	dut_reset_off();
 	//dut_start();
 	//dut_set_speed(2000<<8);
@@ -173,7 +205,7 @@ void threadDUTProceed(void *arg)
 	tlm.out_torque = 0;
 	tlm.out_speed = 0;	//(int)(24.3*256.f+0.5);
 	tlm.cyc_cnt = 0;
-	tlm.time_stamp = 0;
+	tlm.fsm_state = 0;
 
 	while(1) {
 		//osDelay(100);
@@ -185,7 +217,7 @@ void threadDUTProceed(void *arg)
 						tlm.in_speed = ddsfreq<<8;
 						tlm.in_torque = torqCurr;
 						tlm.cyc_cnt = fsm_get_cyccnt();
-						tlm.time_stamp = (uint32_t)fsm_get_mode();
+						tlm.fsm_state = (uint32_t)fsm_get_mode();
 						mdb_fifo_write((uint8_t*)&tlm, sizeof tlm);
 						finm = 0;
 					}
@@ -193,7 +225,7 @@ void threadDUTProceed(void *arg)
 					finm = (1<<0);
 					mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
 					//mdb485_read_inputregs(MDB485SI30ID, 0, 2);
-					mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2); 
+					mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2);
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);

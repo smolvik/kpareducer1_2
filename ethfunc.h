@@ -4,6 +4,7 @@
 #include "MDR1986VE1T.h"
 #include <cmsis_os.h>
 #include "signals.h"
+#include "param.h"
 
 typedef struct
 {
@@ -22,7 +23,7 @@ typedef struct
 void SetPHYReg(uint8_t,uint8_t,uint16_t);
 uint16_t GetPHYReg(uint8_t,uint8_t);
 void PHYInit(uint8_t,uint8_t);
-void EthernetConfig(void);
+void EthernetConfig(const struct STR_BSI_PARAM *par);
 void MACReset(void);
 void ClearMemory(void);
 uint32_t ReadPacket(_Rec_Frame*);

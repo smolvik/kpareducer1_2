@@ -1,5 +1,4 @@
 #include "ethfunc.h"
-#include "param.h"
 
 uint16_t MyMAC[3]={0x3412,0x7856,0xBC9A};		//MAC-адрес контроллера
 
@@ -82,11 +81,15 @@ uint16_t GetPHYReg(uint8_t Addr, uint8_t Num)
 *------------------------------------------------------
 -----------------------------------------------------*/
 //*** Функция для конфигурирования MAC модуля ***
-void EthernetConfig()
+void EthernetConfig(const struct STR_BSI_PARAM *par)
 {
 	PHYInit(0x1C,3);	//PHY address 0x1C, Mode 100BaseT_Full_Duplex
 
-	//par_mac((uint8_t*)MyMAC);
+	if(par) {
+		MyMAC[0] = par->mac[0];
+		MyMAC[1] = par->mac[1];
+		MyMAC[2] = par->mac[2];
+	}
 
 	MDR_ETHERNET1->ETH_MAC_T=MyMAC[0];
 	MDR_ETHERNET1->ETH_MAC_M=MyMAC[1];

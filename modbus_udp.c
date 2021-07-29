@@ -9,7 +9,7 @@
 
 /* Holding registers */
 #define REGISTERS_REF_ADDRESS		0x0000
-#define REGISTERS_NB  				24
+#define REGISTERS_NB  				38
 /* Input registers */
 #define INPUT_REGISTERS_REF_ADDRESS 0x0100
 #define INPUT_REGISTERS_NB 			3
@@ -17,6 +17,8 @@
 #define FIFO_REGISTERS_REF_ADDRESS 	0x0200
 
 #define MDB_FIFO_QSIZE 512
+#define PARREGS						0x0020
+#define PARNREG						6
 
 static uint8_t fifo_queue[MDB_FIFO_QSIZE];
 static uint32_t ihead = 0;
@@ -457,7 +459,7 @@ int pdu_write_multiply_registers(int ofs)
 	else
 	{
 		// address is OK
-		// make writing registers	
+		// make writing registers
 		j = ofs+6; // data begins here
 		for(i = 0; i < quantity_of_registers; i++)
 		{
@@ -478,6 +480,15 @@ int pdu_write_multiply_registers(int ofs)
 		//osSignalSet(thrFSMProcceedId, SIG_FSM_MDBCOMRDY_THRFSMPROCEED);
 		osMessagePut(fsmCmdMsgQid, register_tab[0], 0);
 	}
+	
+	if(start_address == 0x0020) {		
+		if(0 == crc16((uint8_t*)&register_tab[PARREGS], PARNREG*2)) {
+			// crc ok - save parameters
+			par_save((struct STR_BSI_PARAM*)&register_tab[PARREGS]);
+			struct STR_BSI_PARAM rp;
+			par_read(&rp);
+		}
+	}	
 	
 	return j;
 }
@@ -536,7 +547,7 @@ int pdu_read_fifo_queue(int ofs)
 			u32tobe(tdat.out_torque, dst); dst += 4;
 			u32tobe(tdat.out_speed, dst); dst += 4;
 			u32tobe(tdat.cyc_cnt, dst); dst += 4;
-			u32tobe(tdat.time_stamp, dst); dst += 4;
+			u32tobe(tdat.fsm_state, dst); dst += 4;
 
 			j += nr;
 		}

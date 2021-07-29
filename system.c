@@ -6,12 +6,17 @@
 //--- Ports configuration ---
 void PortConfig()
 {
+	// portA
+	// PA3-input button reset to default settings
+	MDR_PORTA->ANALOG |= (1<<3);
+	MDR_PORTA->OE &= ~(1<<3);
+	
 	// port B
 	// PB14 - ETH_YELLOW out PB15 - ETH_GREEN out
 	// PB9 - analog1 polarity switch
 	// PB10 - analog2 polarity switch
-	// PB1-PB4 - control servo1
-	// PB5-PB8 - control servo2
+	// PB1-PB4 - control servo1		PB1 - SON
+	// PB5-PB8 - control servo2		PB5 - SON
 	// PB11 - si8 reset
 	// PB12 - si8 block
 	// PB0 - servo power on/off
@@ -92,18 +97,18 @@ void ClkConfig(void)
 	MDR_RST_CLK->TIM_CLOCK |= RST_CLK_TIM_CLOCK_TIM2_CLK_EN;
 	MDR_RST_CLK->TIM_CLOCK &= ~RST_CLK_TIM_CLOCK_TIM2_BRG_Msk;
 
-	MDR_RST_CLK->PER_CLOCK|=(1<<14) | (1<<15) | 
-			(1<<22)|(1<<23)|(1<<24)|(1<<25)|(1<<18);	//Enable clock for TIM1, TIM2, PORTB, PORTC, PORTD, PORTE, DAC
+	MDR_RST_CLK->PER_CLOCK|=(1<<14) | (1<<15) | (1<<21) |
+			(1<<22)|(1<<23)|(1<<24)|(1<<25)|(1<<18);	//Enable clock for TIM1, TIM2, PORTA, PORTB, PORTC, PORTD, PORTE, DAC
 
 	// enable clock UART2
-	MDR_RST_CLK->PER_CLOCK |= (1 << 7);								
-	MDR_RST_CLK->UART_CLOCK |= (1 << 25);		
+	MDR_RST_CLK->PER_CLOCK |= (1 << 7);
+	MDR_RST_CLK->UART_CLOCK |= (1 << 25);
 	MDR_RST_CLK->UART_CLOCK &= ~(0xff<< 8);	// uart2 clk = hclk	
 	
 	// enable clock UART1
 	MDR_RST_CLK->PER_CLOCK |= (1 << 6);
 	MDR_RST_CLK->UART_CLOCK |= (1 << 24);
-	MDR_RST_CLK->UART_CLOCK &= ~(0xff<< 0);	// uart1 clk = hclk		
+	MDR_RST_CLK->UART_CLOCK &= ~(0xff<< 0);	// uart1 clk = hclk
 }
 
 void TimerConfig(void)
