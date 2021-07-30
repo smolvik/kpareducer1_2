@@ -225,7 +225,7 @@ void threadDUTProceed(void *arg)
 					finm = (1<<0);
 					mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
 					//mdb485_read_inputregs(MDB485SI30ID, 0, 2);
-					mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2);
+					//mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2);
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);

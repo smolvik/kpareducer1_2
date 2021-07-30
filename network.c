@@ -1,5 +1,7 @@
 #include "network.h"
 
+extern int mdb485_send(uint8_t *buf, int n);
+
 uint16_t MyIPAddress[2]={0x000A,0x0100}; 			//(0:10, 1:0) IP-адрес клиента (наш IP-адрес): 10.0.0.1
 
 extern uint16_t Identification, SequenceNumber;
@@ -140,7 +142,6 @@ uint16_t CheckSum_ICMP(uint16_t size, uint16_t* Data)
         return (uint16_t)(~cs);
 }
 
-
 void Request_ICMP(void)
 {
 	uint16_t Buf[37];
@@ -148,9 +149,9 @@ void Request_ICMP(void)
 	uint32_t i,j;
 
 //---- Eth2 ----
-  	Buf[0]=Remote_MAC.RmtMAC[0];    //MAC-адрес источника
-   	Buf[1]=Remote_MAC.RmtMAC[1];    //MAC-адрес источника
-   	Buf[2]=Remote_MAC.RmtMAC[2];    //MAC-адрес источника
+  	Buf[0]=Remote_MAC.RmtMAC[0];    //MAC-адрес destination
+   	Buf[1]=Remote_MAC.RmtMAC[1];    //MAC-адрес destination
+   	Buf[2]=Remote_MAC.RmtMAC[2];    //MAC-адрес destination
 	Buf[3]=MDR_ETHERNET1->ETH_MAC_T;     	//наш MAC-адрес
 	Buf[4]=MDR_ETHERNET1->ETH_MAC_M;     	//наш MAC-адрес
 	Buf[5]=MDR_ETHERNET1->ETH_MAC_H;     	//наш MAC-адрес
@@ -171,7 +172,7 @@ void Request_ICMP(void)
 	Buf[17]=0x0008;        			//Type 0x08 (Echo (ping) request), Code 0x00
 	Buf[18]=0x0000;		        	//Checksum ICMP
 	Buf[19]=0x0002;       			//Identifier
-  	Buf[20]=SequenceNumber;       			//Sequence Number
+  	Buf[20]=SequenceNumber;       	//Sequence Number
 
 	for(i=0,j=0;i<32;i+=2,j++)
 	{
@@ -199,7 +200,7 @@ void Request_ICMP(void)
 void Answear_ICMP(void)
 {
     unsigned long a;
-	static uint16_t buffer[288];
+	static uint16_t buffer[288];	// 576 bytes
 	uint16_t tmp;
 	
 	//Кол-во байт в ICMP-пакете
@@ -233,19 +234,86 @@ void Answear_ICMP(void)
 	buffer[15]=Frame.Data[13];//IP->SourceAddr[0];
 	buffer[16]=Frame.Data[14];//IP->SourceAddr[1];
 	//-------ICMP Protocol---------
-	buffer[17]=0x0000; //ответ
-    Frame.Data[17]=0x0000;
+	// make Echo reply
+	buffer[17]=0x0000; 
+	Frame.Data[17]=0x0000;
 	//-----------------------------
 	buffer[18]=CheckSum_ICMP(tmp,Frame.Data);
-    for(a=19;a<((tmp-2)+19);a++)
+	for(a=19;a<((tmp-2)+19);a++)
 	{
-    	buffer[a]=Frame.Data[a];
+		buffer[a]=Frame.Data[a];
 	}
 	
 	if(0==SendPacket(buffer,(tmp*2+34))) {
 		//xprintf("err tx\n");
 	}
 }
+
+void DestinationUnreachable_ICMP(void)
+{
+	uint16_t Buf[37];
+	uint8_t tmp[2];
+	uint32_t i,j;
+
+//---- Eth2 ----
+  	Buf[0]=Remote_MAC.RmtMAC[0];    //MAC-адрес destination
+   	Buf[1]=Remote_MAC.RmtMAC[1];    //MAC-адрес destination
+   	Buf[2]=Remote_MAC.RmtMAC[2];    //MAC-адрес destination
+	Buf[3]=MDR_ETHERNET1->ETH_MAC_T;     	//наш MAC-адрес
+	Buf[4]=MDR_ETHERNET1->ETH_MAC_M;     	//наш MAC-адрес
+	Buf[5]=MDR_ETHERNET1->ETH_MAC_H;     	//наш MAC-адрес
+	Buf[6]=0x0008;         			//type - IP
+//---- IP ----
+	Buf[7]=0x0045;         			//Version 4, length 20 bytes, Differentiated Services Field 0x00
+	Buf[8]=0x3800;         			//Total length 56 bytes
+	Buf[9]=Identification; 			//Identification
+	Buf[10]=0x0000;              	//Flag = 0x00, Fragment offset = 0x00
+	Buf[11]=0x0180;			    	//Time To Live = 0x80, Protocol = 0x01 - ICMP
+	Buf[12]=0x0000;    				//Checksum IP
+	Buf[13]=MyIPAddress[0];    		//Source IP-address[0]
+	Buf[14]=MyIPAddress[1]; 		//Source IP-address[1]
+	Buf[15]=Remote_MAC.RmtIP[0];	//Destination IP-address[0]
+	Buf[16]=Remote_MAC.RmtIP[1];   	//Destination IP-address[1]
+	Buf[12]=CheckSum_IP(Buf);
+//---- ICMP ----
+	// make Destination Unreachable
+	Buf[17]=0x0303;        			//Type 0x03, Code 0x03
+	Buf[18]=0x0000;		        	//Checksum ICMP
+	Buf[19]=0x0000;
+	Buf[20]=0x0000;
+	// copy 20 bytes of ip header and 8 bytes data
+	for(i=0; i < (10+4); i++) {
+		Buf[i+21] = Frame.Data[i+7];
+	}
+	Buf[18]=CheckSum_ICMP(4+10+4, Buf);
+	if(0==SendPacket(Buf, 2*21+28)) {
+		//xprintf("err tx\n");
+	}
+
+	tmp[0]=(Identification>>8);
+	tmp[1]=Identification;
+	if(++tmp[0]==0)	tmp[1]++;
+	Identification=(tmp[0]<<8)|tmp[1];
+}
+
+/*
+	} else if(icmp_type == 3) {
+		// make Destination Unreachable
+		buffer[17]=0x0303;        			//Type 0x03, Code 0x03
+		buffer[18]=0x0000;		        	//Checksum ICMP
+		buffer[19]=0x0000;
+		buffer[20]=0x0000;
+		// copy 20 bytes of ip header and 8 bytes data
+		int i;
+		for(i=0; i < (10+4); i++) {
+			buffer[i+21] = Frame.Data[i+7];
+		}
+		buffer[18]=CheckSum_ICMP(4+10+4, buffer);
+		if(0==SendPacket(buffer, 2*21+28)) {
+			//xprintf("err tx\n");
+		}		
+	}
+ */
 
 //void Send_UDP(uint8_t *s, int uln, uint16_t sport, uint16_t dport)
 void Send_UDP(uint8_t *s, int uln)
@@ -359,6 +427,8 @@ void PacketParser(void)
 						 
 						 if(dstPort == UDPMODBUS_PORT) {
 							mdb_proc_adu((uint8_t*)(Frame.Data+21));
+						 } else {
+							DestinationUnreachable_ICMP();
 						 }
 						 
 						 /*
@@ -388,6 +458,7 @@ void PacketParser(void)
 		case 0x0608:      //протокол ARP
 		
 			//xprintf("ARP frame\n");
+			mdb485_send("arp\r\n", 5);
 		
 			if(Frame.Data[10] == 0x0100) {
 				//ARP-reply
