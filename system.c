@@ -47,10 +47,11 @@ void PortConfig()
 	MDR_PORTC->ANALOG |= (1 << 3) | (1 << 4);					// PC.3 PC.4 - цифровой режим
 	MDR_PORTC->PWR |= (0x03 << (3<<1)) | (0x03 << (4<<1));		// max speed PC.3 PC.4
 	MDR_PORTC->RXTX &= ~((1 << 3) | (1 << 4));	     			// очищаем выход
+	
 	// PC5 - EXTINT1
-	MDR_PORTC->ANALOG |= (1 << 5);								// PC.5 - цифровой вход
-	MDR_PORTC->FUNC |= (1 << (5<<1));							// PC.5 - осн функ
-	NVIC_ClearPendingIRQ(EXT_INT1_IRQn);
+	//MDR_PORTC->ANALOG |= (1 << 5);							// PC.5 - цифровой вход
+	//MDR_PORTC->FUNC |= (1 << (5<<1));							// PC.5 - осн функ
+	//NVIC_ClearPendingIRQ(EXT_INT1_IRQn);
 	//NVIC_EnableIRQ(EXT_INT1_IRQn); 								
 	
 	// portE
@@ -120,16 +121,6 @@ void TimerConfig(void)
 	MDR_TIMER1->IE |= TIMER_IE_CNT_ARR_EVENT_IE;					// enable int for CNT=ARR event
 	MDR_TIMER1->CNTRL |= TIMER_CNTRL_CNT_EN; 						// start count
 	NVIC_EnableIRQ(TIMER1_IRQn); 									// enable in nvic int from timer1
-	
-	MDR_TIMER2->CNT = 0;
-	//MDR_TIMER2->PSG = 25 - 1;  		// prescaller
-	//MDR_TIMER2->ARR = 3750 - 1;		// TIM2  is 1024Hz
-	MDR_TIMER2->PSG = 96 - 1;  		// prescaller
-	MDR_TIMER2->ARR = 953 - 1;		// TIM2 is 1049Hz
-	
-	MDR_TIMER2->IE |= TIMER_IE_CNT_ARR_EVENT_IE;					// enable int for CNT=ARR event
-	MDR_TIMER2->CNTRL |= TIMER_CNTRL_CNT_EN; 						// start count
-	NVIC_EnableIRQ(TIMER2_IRQn); 									// enable in nvic int from timer1	
 }
 
 void dac_init()

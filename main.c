@@ -53,12 +53,29 @@ int32_t torqCurr = 0;
 
 void dut_pwr_on()
 {
-	MDR_PORTB->SETTX = (1<<1)|(1<<5);
+	// set servo power on
+	MDR_PORTB->CLRTX = (1<<0);
 }
 
-void dut_pwr_off()
+void servo_pwr_off()
 {
+	// set servo power off
+	MDR_PORTB->SETTX = (1<<0);
+}
+
+
+void dut_on()
+{
+	// signal S-ON of servos 
+	// low level is seros on
 	MDR_PORTB->CLRTX = (1<<1)|(1<<5);
+}
+
+void dut_off()
+{
+	// signal S-ON of servos
+	// high level is seros off
+	MDR_PORTB->SETTX = (1<<1)|(1<<5);
 }
 
 void dut_reset_off()
@@ -117,7 +134,7 @@ int main()
 			break;
 		}
 	}
-	
+
 	struct STR_BSI_PARAM rp;
 	par_read(&rp);
 	if( 0 == crc16((uint8_t*)&rp, sizeof(struct STR_BSI_PARAM)) ) {
@@ -132,7 +149,9 @@ int main()
 	//EthernetConfig(0);
 	//network_config(0);
 	
-	dut_pwr_off();
+	dut_pwr_on();
+
+	dut_off();
 	dut_reset_off();
 	//dut_start();
 	//dut_set_speed(2000<<8);
@@ -161,27 +180,7 @@ void TIMER1_Handler(void)
 	MDR_TIMER1->STATUS = 0;
 	osSignalSet(thrDUTProcceedId, SIG_DUT_UPDATE);
 }
-
-
-void TIMER2_Handler(void)
-{
-	static uint32_t phase1 = 0;
-	static uint32_t phase2 = 65536/4;
-	
-	MDR_TIMER2->STATUS = 0;
-	
-	phase1 = 65535&(phase1+ddsfreq);
-	phase2 = 65535&(phase2+ddsfreq);
-	
-	//MDR_PORTB->SETTX = 1<<11;
-	
-	if(phase1>30000) MDR_PORTB->SETTX = 1<<12;
-	else MDR_PORTB->CLRTX = 1<<12;
-	
-	if(phase2>30000) MDR_PORTB->SETTX = 1<<0;
-	else MDR_PORTB->CLRTX = 1<<0;
-}
-
+/*
 void EXT_INT1_Handler(void)
 {
 	static volatile int dbg = 0;
@@ -189,6 +188,7 @@ void EXT_INT1_Handler(void)
 	NVIC_DisableIRQ(EXT_INT1_IRQn);
 	dbg ++;
 }
+*/
 
 extern uint32_t fsmdbg;
 
@@ -223,9 +223,8 @@ void threadDUTProceed(void *arg)
 					}
 					
 					finm = (1<<0);
-					mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
-					//mdb485_read_inputregs(MDB485SI30ID, 0, 2);
-					//mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2);
+					//mdb232_read_inputregs(MDB232BIKM1ID, 0, 4);
+					mdb485_read_inputregs(MDB485SI30ID, 0x0002, 2);
 					break;
 				case SIG_DUT_MDB232_RDYDATA:
 					finm |= (1<<1);

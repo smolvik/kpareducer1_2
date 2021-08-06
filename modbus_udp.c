@@ -12,7 +12,7 @@
 #define REGISTERS_NB  				38
 /* Input registers */
 #define INPUT_REGISTERS_REF_ADDRESS 0x0100
-#define INPUT_REGISTERS_NB 			3
+#define INPUT_REGISTERS_NB 			4
 /* FIFO registers */
 #define FIFO_REGISTERS_REF_ADDRESS 	0x0200
 
@@ -20,14 +20,21 @@
 #define PARREGS						0x0020
 #define PARNREG						6
 
+// BCD format YY:MM:DD:HH:MM:SS
+
 static uint8_t fifo_queue[MDB_FIFO_QSIZE];
 static uint32_t ihead = 0;
 static uint32_t itail = 0;
 
 uint16_t 	register_tab[REGISTERS_NB];
-uint16_t    input_registers_tab[INPUT_REGISTERS_NB];
+uint16_t    input_registers_tab[INPUT_REGISTERS_NB] = {
+		((FWVERSION_1/10)<<12) | ((FWVERSION_1%10)<<8)| ((FWVERSION_2/10)<<4) | ((FWVERSION_2%10)<<0),
+		((FWVERSION_3/10)<<12) | ((FWVERSION_3%10)<<8)| ((FWVERSION_4/10)<<4) | ((FWVERSION_4%10)<<0),
+		((FWVERSION_5/10)<<12) | ((FWVERSION_5%10)<<8)| ((FWVERSION_6/10)<<4) | ((FWVERSION_6%10)<<0),
+		((VERSION_1/10)<<12) | ((VERSION_1%10)<<8)| ((VERSION_2/10)<<4) | ((VERSION_2%10)<<0)
+};
 
-const uint8_t device_additional_info[] = "SAU1 conrtroller";
+const uint8_t device_additional_info[] = "SAU controller";
 
 static int 	pdu_read_fifo_queue(int);
 static int 	pdu_report_server_id(int);

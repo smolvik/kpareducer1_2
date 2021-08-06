@@ -8,8 +8,8 @@ extern void dut_set_speed(int32_t);
 extern void dut_reset_off();
 extern void dut_reset_on();
 extern void dut_set_torque(int32_t t);
-extern void dut_pwr_on();
-extern void dut_pwr_off();
+extern void dut_on();
+extern void dut_off();
 
 extern void mdb_get_testparam(struct STR_TEST_PARAM *par);
 
@@ -78,7 +78,7 @@ void fsm_idle(uint32_t arg)
 			torq2 = tor_tab[1];
 			ktorq = ktor_tab[0];
 			
-			dut_pwr_on();
+			dut_on();
 			dut_reset_on();
 			dut_set_speed(testParam.in_speed);
 			dut_set_torque(torq1);
@@ -188,7 +188,7 @@ void fsm_clean(uint32_t arg)
 		fsmproc = fsm_idle;
 		fsmmode = ST_IDLE;
 		dut_reset_off();
-		dut_pwr_off();
+		dut_off();
 		
 		cycCnt = 0;
 		cycIdx = 0;

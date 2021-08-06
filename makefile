@@ -6,6 +6,15 @@ CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 CP = arm-none-eabi-objcopy
 
+FWVERSION_1=$(shell date +"%-g")
+FWVERSION_2=$(shell date +"%-m")
+FWVERSION_3=$(shell date +"%-d")
+FWVERSION_4=$(shell date +"%-H")
+FWVERSION_5=$(shell date +"%-M")
+FWVERSION_6=$(shell date +"%-S")
+VERSION_1=1
+VERSION_2=0
+
 LKR_SCRIPT = k1986ve1t.ld
 
 INCLUDES = -I/home/smolvik/CMSIS_5-5.4.0/CMSIS/Core/Include
@@ -25,8 +34,17 @@ LFLAGS += -L/home/smolvik/CMSIS_5-5.4.0/CMSIS/RTOS/RTX/LIB/GCC
 LIBS = --start-group -lgcc -lm -lc -lRTX_CM0 --end-group
 CPFLAGS = -Obinary
 
+CFLAGS += -DFWVERSION_1=$(FWVERSION_1)
+CFLAGS += -DFWVERSION_2=$(FWVERSION_2)
+CFLAGS += -DFWVERSION_3=$(FWVERSION_3)
+CFLAGS += -DFWVERSION_4=$(FWVERSION_4)
+CFLAGS += -DFWVERSION_5=$(FWVERSION_5)
+CFLAGS += -DFWVERSION_6=$(FWVERSION_6)
+CFLAGS += -DVERSION_1=$(VERSION_1)
+CFLAGS += -DVERSION_2=$(VERSION_2)
+
 all: blink.bin
-	@echo $(IMAGE)
+
 
 fsm.o: fsm.c
 	$(CC) $(CFLAGS) -o $@ $<
@@ -82,11 +100,13 @@ blink.elf: main.o startup.o mdb485.o stubs.o mdb232.o xprintf.o RTX_Conf_CM.o sy
 blink.bin: blink.elf
 	$(CP) $(CPFLAGS) $< $@
 	arm-none-eabi-objdump -d blink.elf > blink.s
+	@echo $(FWVERSION_1).$(FWVERSION_2).$(FWVERSION_3).$(FWVERSION_4).$(FWVERSION_5).$(FWVERSION_6).$(VERSION_1).$(VERSION_2) > version
+	
 clean:
 	rm -rf *.o *.elf *.bin
 
 load: blink.elf
-	/home/smolvik/mdr1986x-JFlash-master/loadjlink $(IMAGE)
+	/home/smolvik/mdr1986x-JFlash-master/loadjlink $(IMAGE)	
 
 debug:
 	arm-none-eabi-gdb

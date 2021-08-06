@@ -1,7 +1,5 @@
 #include "network.h"
 
-extern int mdb485_send(uint8_t *buf, int n);
-
 uint16_t MyIPAddress[2]={0x000A,0x0100}; 			//(0:10, 1:0) IP-адрес клиента (наш IP-адрес): 10.0.0.1
 
 extern uint16_t Identification, SequenceNumber;
@@ -458,7 +456,6 @@ void PacketParser(void)
 		case 0x0608:      //протокол ARP
 		
 			//xprintf("ARP frame\n");
-			mdb485_send("arp\r\n", 5);
 		
 			if(Frame.Data[10] == 0x0100) {
 				//ARP-reply

@@ -33,7 +33,7 @@
  *---------------------------------------------------------------------------*/
  
 #include "cmsis_os.h"
- 
+#include "MDR1986VE1T.h" 
 
 /*----------------------------------------------------------------------------
  *      RTX User configuration part BEGIN
@@ -226,9 +226,10 @@ void os_idle_demon (void) {
  
   for (;;) {
     /* HERE: include optional user code to be executed when no thread runs.*/
+    __WFE();
   }
 }
- 
+
 #if (OS_SYSTICK == 0)   // Functions for alternative timer as RTX kernel timer
  
 /*--------------------------- os_tick_init ----------------------------------*/
